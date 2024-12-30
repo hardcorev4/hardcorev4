@@ -307,7 +307,7 @@ task.spawn(function()
                     if room.RoomExit then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
-                                if node.Patent then
+                                if node.Parent then
                                     move(ripper,node.CFrame + Vector3.new(0,3,0),100)
                                 end
                             end
@@ -446,7 +446,9 @@ task.spawn(function()
                     if room.RoomExit then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
-                                movec(cease,node.CFrame + Vector3.new(0,3,0),35)
+				if node.Parent then
+                                	movec(cease,node.CFrame + Vector3.new(0,3,0),35)
+				end
                             end
                         end
                         movec(cease,room.RoomExit.CFrame,35)
