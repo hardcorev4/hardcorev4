@@ -448,7 +448,7 @@ task.spawn(function()
 
                 while true do
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
-                    if room.RoomExit then
+                    if room:FindFirstChild("RoomExit") then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
 				if node.Parent then
@@ -456,7 +456,9 @@ task.spawn(function()
 				end
                             end
                         end
-                        movec(cease,room.RoomExit.CFrame,35)
+			if room:FindFirstChild("RoomExit") then
+                        	movec(cease,room.RoomExit.CFrame,35)
+			end
                     end
                     count += 1
                     if count >= #game.Workspace.CurrentRooms:GetChildren() then
@@ -650,10 +652,6 @@ task.spawn(function()
                             end
                         end
                     end
-                end)
-
-                game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function() 
-                    count += 1
                 end)
 
                 while true do
@@ -907,7 +905,9 @@ task.spawn(function()
                                 movel(silen,node.CFrame + Vector3.new(0,3,0),30)
                             end
                         end
-                    movel(silen,room.RoomExit.CFrame,30)
+			if room:FindFirstChild("RoomExit") then
+                        	movel(silen,room.RoomExit.CFrame,30)
+			end
                 end
                 count += 1
                 if count >= #game.Workspace.CurrentRooms:GetChildren() then
