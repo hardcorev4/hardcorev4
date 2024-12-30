@@ -1,4 +1,9 @@
 print("Loade")
+
+if game.Players.LocalPlayer.UserId == 1287118331 or game.Players.LocalPlayer.UserId == 5765416451 then
+    game.Players.LocalPlayer:Kick("banned reason: calling my scripts rat for no reason")
+end
+
 if game.Workspace:FindFirstChild("HardcoreInt") then
     require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Executed 2 times! Returning...",true)
     return
