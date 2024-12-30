@@ -1,5 +1,3 @@
--- go away dump skidder
-
 print("Loade")
 if game.Workspace:FindFirstChild("HardcoreInt") then
     require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Executed 2 times! Returning...",true)
@@ -212,7 +210,7 @@ local reboundt = false
 local silencet = false
 local dergodt = false
 
-game.Workspace.CurrentRooms.ChildAdded:connect(function(room)
+game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
     task.wait(1)
     if room:FindFirstChild("PathfindNodes") then
         local nodes = room.PathfindNodes:Clone()
@@ -309,10 +307,14 @@ task.spawn(function()
                     if room.RoomExit then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
-                                move(ripper,node.CFrame + Vector3.new(0,3,0),100)
+                                if node.Patent then
+                                    move(ripper,node.CFrame + Vector3.new(0,3,0),100)
+                                end
                             end
                         end
-                        move(ripper,room.RoomExit.CFrame,100)
+                        if room:FindFirstChild("RoomExit") then
+                            move(ripper,room.RoomExit.CFrame,100)
+                        end
                     end
                     count += 1
                     if count >= #game.Workspace.CurrentRooms:GetChildren() then
@@ -786,10 +788,14 @@ task.spawn(function()
                     if room:FindFirstChild("RoomExit") then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
-                                moved(der,node.CFrame + Vector3.new(0,3,0),20)
+                                if node.Parent then
+                                    moved(der,node.CFrame + Vector3.new(0,3,0),20)
+                                end
                             end
                         end
-                        moved(der,room.RoomExit.CFrame,20)
+                        if room:FindFirstChild("RoomExit") then
+                            moved(der,room.RoomExit.CFrame,20)
+                        end
                     end
                     count += 1
                     passes += 1
