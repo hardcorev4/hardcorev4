@@ -342,7 +342,7 @@ task.spawn(function()
                                 Title = "Torn Apart",
                                 Desc = "Dont leave too early..",
                                 Reason = "Encounter Ripper.",
-                                Image = "rbxassetid://2129409220"
+                                Image = "http://www.roblox.com/asset/?id=12231244908"
                             })
                         end
                         break
