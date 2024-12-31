@@ -127,61 +127,68 @@ task.spawn(function()
     local zerostamtween = game.TweenService:Create(ImageLabel,TweenInfo.new(12),{ImageTransparency = 0})
     button.MouseButton1Click:Connect(function()
         if not cooldown and not ModuleScripts.MainGame.crouching then
+            if pressed == false then
 
-            button.MouseButton1Click:Connect(function()
-                pressed = false
-            end)
+                pressed = true
 
-            pressed = true
+                -- Sprinting
 
-            -- Sprinting
+                isSprinting = true
+                Char:SetAttribute("SpeedBoost",4)
+                zerostamtween:Play()
+                while pressed == true and stamina > 0 do
+                    stamina = math.max(stamina - 1, 0)
+                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
+                    task.wait(sprintTime / 100)
+                    
+                end
 
-            isSprinting = true
-            Char:SetAttribute("SpeedBoost",4)
-            zerostamtween:Play()
-            while pressed == true and stamina > 0 do
-                stamina = math.max(stamina - 1, 0)
-                Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
-                task.wait(sprintTime / 100)
-                
-            end
+                -- Reset
+                zerostamtween:Pause()
+                isSprinting = false
+                Char:SetAttribute("SpeedBoost",0)
+                game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
+                Hum.WalkSpeed = 15
 
-            -- Reset
-            zerostamtween:Pause()
-            isSprinting = false
-            Char:SetAttribute("SpeedBoost",0)
-            game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
-            Hum.WalkSpeed = 15
+                if stamina == 0 then
+                    -- Cooldown
+                    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("You're exhausted.",true)
+                    local noStamernaSound = Instance.new("Sound",workspace)
+                    noStamernaSound.SoundId = "rbxassetid://8258601891"
+                    noStamernaSound.Volume = 0.8
+                    noStamernaSound.PlayOnRemove = true
+                    noStamernaSound:Destroy()
+                    cooldown = true
+                    game.TweenService:Create(ImageLabel,TweenInfo.new(0.3),{ImageTransparency = 0}):Play()
+                    wait(0.3)
+                    game.TweenService:Create(ImageLabel,TweenInfo.new(10),{ImageTransparency = 1}):Play()
+                    for i = 1, staminaMax, 1 do
+                        stamina = i
+                        Fill.Size = UDim2.new(1 / staminaMax * i, 1, 1, 0)
 
-            if stamina == 0 then
-                -- Cooldown
-                require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("You're exhausted.",true)
-                local noStamernaSound = Instance.new("Sound",workspace)
-                noStamernaSound.SoundId = "rbxassetid://8258601891"
-                noStamernaSound.Volume = 0.8
-                noStamernaSound.PlayOnRemove = true
-                noStamernaSound:Destroy()
-                cooldown = true
-                game.TweenService:Create(ImageLabel,TweenInfo.new(0.3),{ImageTransparency = 0}):Play()
-                wait(0.3)
-                game.TweenService:Create(ImageLabel,TweenInfo.new(10),{ImageTransparency = 1}):Play()
-                for i = 1, staminaMax, 1 do
-                    stamina = i
-                    Fill.Size = UDim2.new(1 / staminaMax * i, 1, 1, 0)
+                        task.wait(sprintTime / 50)
+                    end
+
+                    cooldown = false
+                else
+                    -- Refill
+                    cooldown = false
+                    Spawn(function()
+                        --wait(1)
+                        cooldown = false
+                    end)
+                    game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
+                    while pressed == false do
+                    stamina = math.min(stamina + 1, staminaMax)
+                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
 
                     task.wait(sprintTime / 50)
                 end
-
-                cooldown = false
-            else
-                -- Refill
-                cooldown = false
-                Spawn(function()
-                    --wait(1)
-                    cooldown = false
-                end)
-                game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
-            end        
+                end
+            else    
+                print("pressed again returning...")
+                pressed = false
+            end
         end
     end)
     Char:SetAttribute("SpeedBoost",0)
