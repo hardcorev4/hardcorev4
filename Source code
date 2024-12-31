@@ -247,7 +247,7 @@ task.spawn(function()
                         local anim = tweenservice:Create(light,TweenInfo.new(2,Enum.EasingStyle.Linear),{Color = Color3.fromRGB(255,0,0)})
                         anim:Play()
                         if light.Parent.Name == "LightFixture" then
-                            light.Parent.LightFixture.Color = Color3.fromRGB(255,0,0)
+                            light.Parent.Color = Color3.fromRGB(255,0,0)
                         end
                     end
                 end
