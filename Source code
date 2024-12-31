@@ -502,7 +502,7 @@ task.spawn(function()
                     if game.Players.LocalPlayer.Character:FindFirstChild("Lighter") then
                         if game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true then
                             continue
-                        en
+                        end
                     end
                     game.Players.LocalPlayer.Character.Humanoid:TakeDamage(7.5)
                     task.wait(1)
