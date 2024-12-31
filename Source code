@@ -197,7 +197,7 @@ task.spawn(function()
     Hum.WalkSpeed = 15
 end)
 
-local captions = {"Good luck!","Have fun! (you wont)","Do Not","Freaky ! Xfest all my homies hate ! Xfest"}
+local captions = {"Good luck!","Have fun! (you wont)","Do Not","Freaky ! Xfest all my homies hate ! Xfest","Holy ####... Lois","who th is joe????","Special Thanks To Muhammed!","Extra help by realCat#3509"}
 
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Hardcore v4 recreated version by LocalPlayer loaded",true)
 
