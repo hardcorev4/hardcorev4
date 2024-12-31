@@ -140,7 +140,7 @@ task.spawn(function()
             -- Sprinting
 
             isSprinting = true
-            Char:SetAttribute("SpeedBoost",4)
+            Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") + 4)
             zerostamtween:Play()
             while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
                 stamina = math.max(stamina - 1, 0)
@@ -152,7 +152,7 @@ task.spawn(function()
             -- Reset
             zerostamtween:Pause()
             isSprinting = false
-            Char:SetAttribute("SpeedBoost",0)
+            Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") - 4)
             game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
             Hum.WalkSpeed = 15
 
@@ -193,7 +193,7 @@ task.spawn(function()
             end        
         end
     end)
-    Char:SetAttribute("SpeedBoost",0)
+    Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") - 4)
     Hum.WalkSpeed = 15
 end)
 
