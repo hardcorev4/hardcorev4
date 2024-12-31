@@ -496,15 +496,16 @@ task.spawn(function()
             frost.AmbienceFar:Play()
 
             task.spawn(function()
+		task.wait(1)
                 while can == true do
-                    task.wait(1)
                     --game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true
                     if game.Players.LocalPlayer.Character:FindFirstChild("Lighter") then
                         if game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true then
                             continue
-                        end
+                        en
                     end
                     game.Players.LocalPlayer.Character.Humanoid:TakeDamage(7.5)
+                    task.wait(1)
                     if game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
                         can = false
                         firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call FrostBite...","He will spawn in the middle and start freezing the room.","Find something that has heat to keep you warm!"},"Blue")
