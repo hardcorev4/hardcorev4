@@ -685,7 +685,7 @@ task.spawn(function()
                                     Title = "Out Of Many Rebounds",
                                     Desc = "Back for more!",
                                     Reason = "Encounter Rebound",
-                                    Image = "rbxassetid://13856279731"
+                                    Image = "http://www.roblox.com/asset/?id=13856279697"
                                 })
             end
         end
