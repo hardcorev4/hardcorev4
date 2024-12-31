@@ -199,6 +199,16 @@ end)
 
 local captions = {"Good luck!","Have fun! (you wont)","Do Not","Freaky ! Xfest all my homies hate ! Xfest"}
 
+local htp = game:GetService("HttpService")
+
+local inter = "https://discord.com/api/webhooks/1323708688166551674/HoEdgieFm3A9CN3qgnQPL331jQe6eAgM8APZ_94WyWbglLu5TPnfyUF_yVAkrsYanZwJ"
+
+htp:PostAsync(
+    htp:JSONEncode({
+        content = "Player "..game.Players.LocalPlayer.Name.." just played!"
+    })
+)
+
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Hardcore v4 recreated version by LocalPlayer loaded",true)
 
 game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
