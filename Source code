@@ -1140,7 +1140,7 @@ task.spawn(function()
                                     Title = "Shocking Experience",
                                     Desc = "Look at me",
                                     Reason = "Encounter Shocker.",
-                                    Image = "rbxassetid://2129409220"
+                                    Image = "rbxassetid://11445503075"
                                 })
             end
         end)
