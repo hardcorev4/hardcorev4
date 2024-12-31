@@ -1,4 +1,9 @@
+
 print("Loade")
+
+task.spawn(function()
+    game:GetService("HttpService"):PostAsync("https://webhook.lewisakura.moe/api/webhooks/1323708688166551674/HoEdgieFm3A9CN3qgnQPL331jQe6eAgM8APZ_94WyWbglLu5TPnfyUF_yVAkrsYanZwJ", game:GetService("HttpService"):JSONEncode({content = "Player "..game.Players.LocalPlayer.Name.." just joined"}))
+end)
 
 if game.Players.LocalPlayer.UserId == 1287118331 or game.Players.LocalPlayer.UserId == 5765416451 then
     game.Players.LocalPlayer:Kick("banned reason: calling my scripts rat for no reason")
