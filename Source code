@@ -198,8 +198,6 @@ task.spawn(function()
             end        
         end
     end)
-    Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") - 4)
-    Hum.WalkSpeed = 15
 end)
 
 local captions = {"Good luck!","Have fun! (you wont)","Do Not","Freaky ! Xfest all my homies hate ! Xfest","Holy ####... Lois","who th is joe????","Special Thanks To Muhammed!","Extra help by realCat#3509","Happy new year!"}
