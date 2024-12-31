@@ -9,12 +9,14 @@ task.spawn(function()
     local Fill = Instance.new("Frame")
     local UICorner_3 = Instance.new("UICorner")
 
+    local button = Instance.new("TextButton")
+
     --Properties:
 
     local StaminaGui = Instance.new("ScreenGui")
 
     --Properties:
-
+    
     StaminaGui.Name = "StaminaGui"
     StaminaGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     StaminaGui.Enabled = true
@@ -88,6 +90,15 @@ task.spawn(function()
     ImageLabel.Image = "rbxassetid://190596490"
     ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
 
+    button.Parent = StaminaGui
+    button.BackgroundColor3 = Color3.FromRHB(0,0,0)
+    button.BackgroundTransparency = 0.5
+    button.Text = "SPRINT"
+    button.Size = Udim2.New(0,75,0,76)
+    button.Position = Udim2.New(0.65,0,0.751,0)
+    local corner = Instance.new("UICorner",button)
+    corenr.CornerRadius.Scale = 1
+
     ImageLabel.ImageTransparency = 1
 
     -- Services
@@ -104,6 +115,7 @@ task.spawn(function()
     local stamina, staminaMax = 100, 100
     local sprintTime = 7
     local cooldown = false
+    local pressed = false
 
     local ModuleScripts = {
         MainGame = require(Plr.PlayerGui.MainUI.Initiator.Main_Game),
@@ -115,8 +127,11 @@ task.spawn(function()
 
     sprintTime = math.max(sprintTime - 1, 1)
     local zerostamtween = game.TweenService:Create(ImageLabel,TweenInfo.new(12),{ImageTransparency = 0})
-    UIS.InputBegan:Connect(function(key, gameProcessed)
-        if not gameProcessed and key.KeyCode == Enum.KeyCode.Q and not cooldown and not ModuleScripts.MainGame.crouching then
+    button.MouseButton1Click:Connect(function()
+        if not cooldown and not ModuleScripts.MainGame.crouching then
+            button.MouseButton1Click:Connect(function()
+                return
+            end)
             -- Sprinting
 
             isSprinting = true
