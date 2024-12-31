@@ -91,13 +91,11 @@ task.spawn(function()
     ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
 
     button.Parent = StaminaGui
-    button.BackgroundColor3 = Color3.FromRHB(0,0,0)
+    button.BackgroundColor3 = Color3.fromRGB(0,0,0)
     button.BackgroundTransparency = 0.5
     button.Text = "SPRINT"
-    button.Size = Udim2.New(0,75,0,76)
-    button.Position = Udim2.New(0.65,0,0.751,0)
-    local corner = Instance.new("UICorner",button)
-    corenr.CornerRadius.Scale = 1
+    button.Size = UDim2.new(0,75,0,76)
+    button.Position = UDim2.new(0.65,0,0.751,0)
 
     ImageLabel.ImageTransparency = 1
 
@@ -129,15 +127,19 @@ task.spawn(function()
     local zerostamtween = game.TweenService:Create(ImageLabel,TweenInfo.new(12),{ImageTransparency = 0})
     button.MouseButton1Click:Connect(function()
         if not cooldown and not ModuleScripts.MainGame.crouching then
+
             button.MouseButton1Click:Connect(function()
-                return
+                pressed = false
             end)
+
+            pressed = true
+
             -- Sprinting
 
             isSprinting = true
             Char:SetAttribute("SpeedBoost",4)
             zerostamtween:Play()
-            while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
+            while pressed == true and stamina > 0 do
                 stamina = math.max(stamina - 1, 0)
                 Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
                 task.wait(sprintTime / 100)
@@ -179,14 +181,9 @@ task.spawn(function()
                     cooldown = false
                 end)
                 game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
-                while not UIS:IsKeyDown(Enum.KeyCode.Q) do
-                    stamina = math.min(stamina + 1, staminaMax)
-                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
-
-                    task.wait(sprintTime / 50)
-                end
             end        
         end
     end)
     Char:SetAttribute("SpeedBoost",0)
     Hum.WalkSpeed = 15
+end)
