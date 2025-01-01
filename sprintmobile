@@ -1,4 +1,4 @@
-task.spawn(function()
+wtask.spawn(function()
     local Sprint = Instance.new("Frame")
     local ImageLabel = Instance.new("ImageLabel")
     local UICorner = Instance.new("UICorner")
@@ -138,7 +138,7 @@ task.spawn(function()
                 -- Sprinting
 
                 isSprinting = true
-                Char:SetAttribute("SpeedBoost",4)
+                Char:SetAttribute("SpeedBoost",7)
                 zerostamtween:Play()
                 while pressed == true and stamina > 0 do
                     stamina = math.max(stamina - 1, 0)
