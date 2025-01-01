@@ -8,7 +8,7 @@ task.spawn(function()
     local UIPadding_2 = Instance.new("UIPadding")
     local Fill = Instance.new("Frame")
     local UICorner_3 = Instance.new("UICorner")
-
+    local corner = Instance.new("UICorner")
     local button = Instance.new("TextButton")
 
     --Properties:
@@ -96,6 +96,10 @@ task.spawn(function()
     button.Text = "SPRINT"
     button.Size = UDim2.new(0,75,0,76)
     button.Position = UDim2.new(0.65,0,0.751,0)
+    button.TextColor3 = Color3.fromRGB(255,255,255)
+    button.TextScaled = true
+    corner.Parent = button
+    corner.CornerRadius = UDim.new(1,0)
 
     ImageLabel.ImageTransparency = 1
 
