@@ -146,11 +146,11 @@ task.spawn(function()
                 -- Sprinting
 
                 isSprinting = true
-                Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") + 4)
+                Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") + 5)
                 zerostamtween:Play()
                 while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
                     stamina = math.max(stamina - 1, 0)
-                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
+                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 5)
                     task.wait(sprintTime / 100)
                     
                 end
