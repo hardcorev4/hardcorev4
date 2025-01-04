@@ -445,12 +445,12 @@ task.spawn(function()
                         if room:FindFirstChild("nodes") then
                             for _, node in room.nodes:GetChildren() do
                                 if node.Parent then
-                                    move(ripper, node.CFrame + Vector3.new(0, 3, 0), 70)
+                                    move(ripper, node.CFrame + Vector3.new(0, 3, 0), 100)
                                 end
                             end
                         end
                         if room:FindFirstChild("RoomExit") then
-                            move(ripper, room.RoomExit.CFrame, 70)
+                            move(ripper, room.RoomExit.CFrame, 100)
                         end
                     end
                     count = count + 1
