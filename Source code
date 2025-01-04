@@ -240,6 +240,8 @@ end)
 
 task.spawn(function()
     while task.wait(182) do 
+local rippert = false
+
         task.spawn(function()
             if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
                 game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
@@ -275,13 +277,95 @@ task.spawn(function()
 
                 task.spawn(function()
                     while ripper.Parent do
-                        task.wait(0.1)
+                        task.wait()
                         local direction = game.Players.LocalPlayer.Character.HumanoidRootPart.Position - ripper.Position
-                        local ray = game.Workspace:Raycast(ripper.Position , direction.Unit * 50)
+                        local ray = game.Workspace:Raycast(ripper.Position , direction.Unit * 100)
 
                         if ray then
-                            if ray.Instance.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false or ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false then 
+                            if ray.Instance.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false or ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false or ray.Instance.Parent.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false then 
+                                local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
+                                    local Url = GithubSoundPath
+
+                                    if not isfile(AssetName..".mp3") then 
+                                        writefile(AssetName..".mp3", game:HttpGet(Url)) 
+                                    end
+
+                                    local Sound = Instance.new("Sound")
+                                    Sound.SoundId = getcustomasset(AssetName..".mp3", true)
+                                    return Sound 
+                                end
+
+                                local scare = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/0104.mp3", "ScaryRipper")
+                                scare.Parent = game.Workspace
+                                scare.Volume = 1.5
+
+
+                                warn("ripper jumpscare")
+
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+
+                                local clone = ripper:clone()
+                                clone.Parent = game.Workspace
+                                ripper:Destroy()
+
+                                for _ , object: Instance in clone:GetDescendants() do
+                                    if object:IsA("Sound") then
+                                        object.Volume = 0
+                                    elseif object:IsA("ParticleEmitter") then
+                                        object.TimeScale = 0
+                                    end
+                                end
+
+                                task.wait(0.29)
+
+                                local jump = Instance.new("Sound",game.Workspace) 
+                                jump.SoundId = "rbxassetid://7017782324"
+                                jump.Volume = 1.5
+                                
+                                scare:Play()
+                                task.wait(0.21)
+                                jump:Play()
+                                task.wait(0.5)
+
+                                local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+                                local image = Instance.new("ImageLabel",gui)
+                                image.Size = UDim2.new(0,1550,0,1000)
+                                image.AnchorPoint = Vector2.new(0.5,0.5)
+                                image.Position = UDim2.new(0.5,0,0.5,0)
+                                image.Image = "http://www.roblox.com/asset/?id=14412047172"
+                                image.BackgroundTransparency = 1
+                                image.ImageTransparency = 1
+
+                                local sound = Instance.new("Sound",game.Workspace)
+                                sound.SoundId = "rbxassetid://372770465"
+                                sound.Volume = 1
+                                local pitch = Instance.new("PitchShiftSoundEffect",sound)
+                                pitch.Octave = 0.7
+                                local distort = Instance.new("DistortionSoundEffect",sound)
+                                distort.Level = 0.75
+
+                                task.spawn(function()
+                                    while true do
+                                        image.Image = "http://www.roblox.com/asset/?id=236542974"
+                                        task.wait(0.05)
+                                        image.Image = "http://www.roblox.com/asset/?id=8482795900"
+                                        task.wait(0.05)
+                                    end
+                                end)
+
+                                task.wait(1)
+
+                                sound:Play()
+
+                                game:GetService("TweenService"):Create(image,TweenInfo.new(1,Enum.EasingStyle.Linear),{ImageTransparency = 0}):Play()
+
+                                task.wait(2)
+
+                                sound:Destroy()
+                                scare:Destroy()
+                                jump:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                                game:GetService("TweenService"):Create(image,TweenInfo.new(0.2,Enum.EasingStyle.Linear),{ImageTransparency = 1}):Play()
                                 firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Ripper...","You can tell his presence by the lights and his scream.","Hide when he does this!"},"Blue")
                                 game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Ripper"
                             end
