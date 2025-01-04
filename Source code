@@ -328,6 +328,18 @@ local rippert = false
                                 clone.Parent = game.Workspace
                                 ripper:Destroy()
 
+                                local twier:Tween = game.TweenService:Create(game.Workspace.CurrentCamera,TweenInfo.new(0.3,Enum.EasingStyle.Circular,Enum.EasingDirection.InOut),{CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position,clone.Position + Vector3.new(0,5,0))})
+                                twier:Play()
+                                twier.Completed:Wait()
+
+                                game:GetService("RunService").RenderStepped:Connect(function()
+                                    if game.Players.LocalPlayer.Character.Humanoid.Health >= 1 then
+                                        game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.workspace.currentCamera.CFrame.Position, clone.Position + Vector3.new(0,5,0))
+                                    else
+                                        return
+                                    end
+                                end)
+
                                 for _ , object: Instance in clone:GetDescendants() do
                                     if object:IsA("Sound") then
                                         object.Volume = 0
