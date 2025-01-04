@@ -1,6 +1,6 @@
 print("Loade")
 
-if identifyexecutor() == "Xeno" then
+if identifyexecutor() == "Xeno" or identifyexecutor() == "Solara V3" then
 	warn("detected xeno executor")
 	task.spawn(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/nightmare"))()
