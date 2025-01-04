@@ -1,4 +1,4 @@
-wtask.spawn(function()
+task.spawn(function()
     local Sprint = Instance.new("Frame")
     local ImageLabel = Instance.new("ImageLabel")
     local UICorner = Instance.new("UICorner")
