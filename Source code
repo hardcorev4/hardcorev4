@@ -279,7 +279,7 @@ local rippert = false
                     while ripper.Parent do
                         task.wait()
                         local direction = game.Players.LocalPlayer.Character.HumanoidRootPart.Position - ripper.Position
-                        local ray = game.Workspace:Raycast(ripper.Position , direction.Unit * 100)
+                        local ray = game.Workspace:Raycast(ripper.Position , direction.Unit * 60)
 
                         if ray then
                             if ray.Instance.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false or ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false or ray.Instance.Parent.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false then 
