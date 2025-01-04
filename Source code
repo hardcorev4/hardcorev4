@@ -1,5 +1,14 @@
 print("Loade")
 
+function loadfile(GithubSoundPath: string, AssetName: string)
+    local Url = GithubSoundPath
+
+    if not isfile(AssetName..".mp3") then 
+        writefile(AssetName..".mp3", game:HttpGet(Url)) 
+    end
+end
+
+
 if identifyexecutor() == "Xeno" or identifyexecutor() == "Solara V3" then
 	warn("detected xeno executor")
 	task.spawn(function()
@@ -21,14 +30,25 @@ if game.Workspace:FindFirstChild("HardcoreInt") then
     return
 end
 
+local init = Instance.new("BoolValue",game.Workspace)
+init.Name = "HardcoreInt"
+
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file ScaryRipper 1/5",true)
+loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/0104.mp3", "ScaryRipper")
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file ReboundWarning 2/5",true)
+loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundWarning.mp3", "Rebound")
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file ReboundMurder 3/5",true)
+loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundMurder.mp3", "Rebound_kill")
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file ReboundMoving 4/5",true)
+loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundMoving.mp3", "rebaund")
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file Followed 5/5",true)
+loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/followed.mp3", "Following")
+
 if game.ReplicatedStorage.GameData.LatestRoom.Value >= 1 then
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
     firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You need to execute the script at door 0!","Remember this!"},"Blue")
     game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Error"
 end
-
-local init = Instance.new("BoolValue",game.Workspace)
-init.Name = "HardcoreInt"
 
 task.spawn(function()
     if game:GetService("UserInputService").TouchEnabled  == false then
