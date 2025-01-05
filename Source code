@@ -614,6 +614,7 @@ task.spawn(function()
             game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
             task.wait(0.5)
             local can = true
+            local dam = true
             local frost = game:GetObjects("rbxassetid://115543193732339")[1].frosti
             frost.Parent = game.Workspace
             frost.CFrame = game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren() - 1].Parts.Floor.CFrame + Vector3.new(0,4,0)
@@ -626,15 +627,17 @@ task.spawn(function()
             frost.AmbienceFar:Play()
 
             task.spawn(function()
-		task.wait(1)
-                while can == true do
+		    task.wait(1)
+               while can == true do
                     --game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true
                     if game.Players.LocalPlayer.Character:FindFirstChild("Lighter") then
                         if game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true then
-                            continue
-                        end
+                            dam = false
+                        else dam = true end
+                    else dam = true end
+                    if dam == true then
+                        game.Players.LocalPlayer.Character.Humanoid:TakeDamage(7.5)
                     end
-                    game.Players.LocalPlayer.Character.Humanoid:TakeDamage(7.5)
                     task.wait(1)
                     if game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
                         can = false
