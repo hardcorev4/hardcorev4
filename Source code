@@ -645,7 +645,7 @@ task.spawn(function()
             end)
 
             local bluer = Instance.new("ColorCorrectionEffect",game.Lighting)
-            game:GetService("TweenService"):Create(bluer,TweenInfo.new(5),{TintColor = Color3.fromRGB(0, 0, 255)}):Play()
+            game:GetService("TweenService"):Create(bluer,TweenInfo.new(10),{TintColor = Color3.fromRGB(0, 0, 255)}):Play()
             game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
 
             can = false
