@@ -373,6 +373,18 @@ task.spawn(function()
                 pitch.Octave = 0.875
                 sound:Play()
 
+                local tweenservice = game:GetService("TweenService")
+                for _ , light in pairs(game.Workspace.CurrentRooms:GetDescendants()) do
+                    if light:IsA("Light") or light:IsA("SurfaceLight") or light:IsA("SpotLight") then
+                        local anim = tweenservice:Create(light,TweenInfo.new(2,Enum.EasingStyle.Linear),{Color = Color3.fromRGB(255,0,0)})
+                        anim:Play()
+                        if light.Parent.Name == "LightFixture" then
+                            light.Parent.Color = Color3.fromRGB(255,0,0)
+                        end
+                    end
+                end
+
+
                 -- Create ripper
                 local ripper = game:GetObjects("rbxassetid://12651725271")[1].Ripe
                 ripper.Parent = game.Workspace
