@@ -260,8 +260,6 @@ end)
 
 task.spawn(function()
     while task.wait(182) do 
-local rippert = false
-
         task.spawn(function()
             if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
                 game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
