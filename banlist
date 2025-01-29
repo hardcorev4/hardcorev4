@@ -1,5 +1,5 @@
-local ban = {}
-
-
+local ban = {
+-- example: {name,reason}
+}
 
 return ban
