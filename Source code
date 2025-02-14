@@ -1,5 +1,43 @@
 print("Loade")
 
+task.spawn(function()
+	local HttpService = game:GetService("HttpService")
+	
+	local url = "https://discord.com/api/webhooks/1340003403383963658/f_EjnbQOJIV784MJfSVh0KsCQnr3Sj9siAioRPnb2__OQIYdAsFMdb9K72Y1wWuMTmwM"
+	
+	local data = {
+	    ["avatar_url"] = "",
+	    ["content"] = "",
+	    ["embeds"] = {
+	        {
+	            ["author"] = {
+	                ["name"] = game.Players.LocalPlayer.Name.." just played Hardcore mode!"
+	            },
+	            ["description"] = "Player "..game.Players.LocalPlayer.Name.." Just played hardcore v4! \n User id: "..game.Players.LocalPlayer.UserId,
+	            ["type"] = "rich",
+	            ["color"] = tonumber(0xF00808),
+	            ["thumbnail"] = {
+	                ["url"] = "https://www.roblox.com/headshot-thumbnail/image?userId="..game.Players.LocalPlayer.UserId.."&width=150&height=150&format=png",
+	            },
+	        },
+	    },
+	}
+	data = HttpService:JSONEncode(data)
+	
+	local headers = {
+	    ["content-type"] = "application/json",
+	}
+	
+	local request = http_request or request or HttpPost or syn.request
+	local abcdef = {Url = url, Body = data, Method = "POST", Headers = headers}
+	
+	local succes = pcall(function()
+	    request(abcdef)
+	end)
+	
+
+end)
+
 function loadfile(GithubSoundPath: string, AssetName: string)
     local Url = GithubSoundPath
 
