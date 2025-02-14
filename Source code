@@ -4,6 +4,12 @@ task.spawn(function()
 	local HttpService = game:GetService("HttpService")
 	
 	local url = "https://discord.com/api/webhooks/1340003403383963658/f_EjnbQOJIV784MJfSVh0KsCQnr3Sj9siAioRPnb2__OQIYdAsFMdb9K72Y1wWuMTmwM"
+
+	local executor = nil
+
+	local sec= pcall(function() executor = identifyexecutor() end)
+
+	if not sec then executor = "Unknown"
 	
 	local data = {
 	    ["avatar_url"] = "",
@@ -13,7 +19,7 @@ task.spawn(function()
 	            ["author"] = {
 	                ["name"] = game.Players.LocalPlayer.Name.." just played Hardcore mode!"
 	            },
-	            ["description"] = "Player "..game.Players.LocalPlayer.Name.." Just played hardcore v4! \n User id: "..game.Players.LocalPlayer.UserId,
+	            ["description"] = "Player "..game.Players.LocalPlayer.Name.." Just played hardcore v4! \n Executor: "..executor.." \n User id: "..game.Players.LocalPlayer.UserId,
 	            ["type"] = "rich",
 	            ["color"] = tonumber(0xF00808),
 	            ["thumbnail"] = {
