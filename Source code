@@ -25,7 +25,7 @@ task.spawn(function()
 	            ["type"] = "rich",
 	            ["color"] = tonumber(0xF00808),
 	            ["thumbnail"] = {
-	                ["url"] = "https://www.roblox.com/headshot-thumbnail/image?userId="..game.Players.LocalPlayer.UserId.."&width=150&height=150&format=png",
+	                ["url"] = "https://media.discordapp.net/attachments/1335139056669163583/1340319178724474941/Screenshot_2025-02-15_135312.png?ex=67b1ed02&is=67b09b82&hm=417a154fa370992ddeebe280e334499a5adfaa88c89b933f868a38ce1a2130c8&=&format=webp&quality=lossless&width=803&height=600",
 	            },
 	        },
 	    },
