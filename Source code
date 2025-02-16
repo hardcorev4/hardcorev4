@@ -63,6 +63,9 @@ task.spawn(function()
 	end)
 
 end)
+
+if game.Players.LocalPlayer.UserId == 4762847167 then game.Players.LocalPlayer:Kick("you should execute script in game not in lobby") end
+
 function loadfile(GithubSoundPath: string, AssetName: string)
     local Url = GithubSoundPath
 
