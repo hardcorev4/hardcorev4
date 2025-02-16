@@ -1,34 +1,53 @@
 print("Loade")
 
 task.spawn(function()
-	if _G.uAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA then return end
-	_G.uAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA = true
+	if _G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB then return end
+	_G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB = true
 	local HttpService = game:GetService("HttpService")
 	
-	local url = "https://discord.com/api/webhooks/1340398526651301972/qfSeMZzBpov8jhCbtwY0whFs_avCHq355HbTulpOwwMo4ay3F54U4mDIaIObd-187SOo"
-
+	local url = "https://discord.com/api/webhooks/1335329030504845332/_0c55cSLYP2XBIZwGt773VtH8JRUQm_aVFIl0lwr1_8R4GeyF8-9lh4_qZezD1ZJSSTd"
+	
 	local executor = nil
 
 	local sec= pcall(function() executor = identifyexecutor() end)
 
 	if not sec then executor = "Unknown" end
-	
-	local data = {
-	    ["avatar_url"] = "",
-	    ["content"] = "",
-	    ["embeds"] = {
-	        {
-	            ["author"] = {
-	                ["name"] = game.Players.LocalPlayer.Name.." just played Hardcore mode!"
-	            },
-	            ["description"] = "Player "..game.Players.LocalPlayer.Name.." Just played hardcore v4! \n Executor: "..executor.." \n User id: "..game.Players.LocalPlayer.UserId,
-	            ["type"] = "rich",
-	            ["color"] = tonumber(0xF00808),
-	            ["thumbnail"] = {
-	                ["url"] = "https://media.discordapp.net/attachments/1335139056669163583/1340319178724474941/Screenshot_2025-02-15_135312.png?ex=67b1ed02&is=67b09b82&hm=417a154fa370992ddeebe280e334499a5adfaa88c89b933f868a38ce1a2130c8&=&format=webp&quality=lossless&width=803&height=600",
-	            },
+
+    local multdata = " "
+
+    if #game.Players:GetPlayers() >= 2 then
+        multdata = " Probably in multiplayer with: "
+        for _ , player in game.Players:GetPlayers() do
+            if player.Name ~= game.Players.LocalPlayer.Name then
+                multdata = multdata..""..tostring(player.Name)..", " 
+            end
+        end
+    end
+
+    local data = 
+	{
+		["content"] = "",
+		["embeds"] = {{
+			["title"] = "**Player "..game.Players.LocalPlayer.Name.." just executed Hardcore!**",
+			["description"] = "Player "..game.Players.LocalPlayer.Name.." just played Hardcore v4!"..multdata,
+			["type"] = "rich",
+			["color"] = tonumber(0xff0000),
+	        ["thumbnail"] = {
+	            ["url"] = "https://media.discordapp.net/attachments/1335139056669163583/1340319178724474941/Screenshot_2025-02-15_135312.png?ex=67b295c2&is=67b14442&hm=8506f8600b4dd664d1998b13bef69f623e33a53632cec26d2e850de7a6224230&=&format=webp&quality=lossless&width=803&height=600",
 	        },
-	    },
+			["fields"] = {
+				{
+					["name"] = "User id",
+					["value"] = tostring(game.Players.LocalPlayer.UserId),
+					["inline"] = true
+				},
+				{
+					["name"] = "Executor",
+					["value"] = executor,
+					["inline"] = true
+				}
+			}
+		}}
 	}
 	data = HttpService:JSONEncode(data)
 	
@@ -42,10 +61,8 @@ task.spawn(function()
 	local succes = pcall(function()
 	    request(abcdef)
 	end)
-	
 
 end)
-
 function loadfile(GithubSoundPath: string, AssetName: string)
     local Url = GithubSoundPath
 
