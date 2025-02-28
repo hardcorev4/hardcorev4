@@ -1,5 +1,5 @@
 print("Loade")
-https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/Im%20Scared.MP3
+
 task.spawn(function()
 	if _G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB then return end
 	_G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB = true
@@ -547,7 +547,6 @@ task.spawn(function()
 
                                 sound:Destroy()
                                 scare:Destroy()
-                                jump:Destroy()
                                 clone:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.2,Enum.EasingStyle.Linear),{ImageTransparency = 1}):Play()
