@@ -267,6 +267,18 @@ task.spawn(function()
     end
 end)
 
+        local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
+    local Url = GithubSoundPath
+        
+if not isfile(AssetName..".mp3") then 
+    writefile(AssetName..".mp3", game:HttpGet(Url)) 
+ end
+        
+    local Sound = Instance.new("Sound")
+    Sound.SoundId = getcustomasset(AssetName..".mp3", true)
+    return Sound 
+end
+
 local captions = {"Good luck!","Have fun! (you wont)","Do Not","Freaky ! Xfest all my homies hate ! Xfest","Holy ####... Lois","who th is joe????","Special Thanks To Muhammed!","Extra help by realCat#3509","Happy new year!"}
 
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Hardcore v4 recreated version by LocalPlayer loaded",true)
@@ -329,14 +341,18 @@ game:GetService("ReplicatedStorage").GameData.LatestRoom.Changed:Connect(functio
 end)
 
 game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
-    task.wait(1)
-    if room:FindFirstChild("PathfindNodes") then
-        local nodes = room.PathfindNodes:Clone()
+    task.wait(2)
+    local nods = room:FindFirstChild("PathfindNodes")
+    if nods then
+        if room:FindFirstChild("FigureSetup") then
+            nods = room.FigureSetup:FindFirstChild("FigureNodes")
+        end
+        local nodes = nods:Clone()
         nodes.Parent = room
         nodes.Name = "nodes"
-        local secnodes = room.PathfindNodes:Clone()
+        local secnodes = nods:Clone()
         secnodes.Parent = room
-        secnodes.Name = "PathFindNodes"
+        secnodes.Name = "PathfindNodes"
     end
     task.spawn(function()      
         wait(1.2)
@@ -346,18 +362,6 @@ game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
         	return 
         end
         local temlate = getGitSoundId("https://github.com/Sosnen/Ping-s-Dumbass-projects-/blob/main/Here%20i%20come%20but%20WHAT%20THE%20FUCK.mp3?raw=true","NewSeekMusic")
-
-        local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
-            local Url = GithubSoundPath
-        
-            if not isfile(AssetName..".mp3") then 
-                writefile(AssetName..".mp3", game:HttpGet(Url)) 
-            end
-        
-            local Sound = Instance.new("Sound")
-            Sound.SoundId = getcustomasset(AssetName..".mp3", true)
-            return Sound 
-        end
 
         local RealSeek = workspace:FindFirstChild(SeekMoving)
         RealSeek.SeekMusic.SoundId = temlate.SoundId
