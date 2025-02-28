@@ -285,6 +285,49 @@ local reboundt = false
 local silencet = false
 local dergodt = false
 
+local painters = 1
+local paints = {
+	[1] = {"rbxassetid://11881132074","Despair"},
+	[2] = {"rbxassetid://11881132745","Odd feline Specimen"},
+	[3] = {"rbxassetid://11881654771","A tryhard..."},
+	[4] = {"rbxassetid://7084794697","him."}
+}
+
+game:GetService("ReplicatedStorage").GameData.LatestRoom.Changed:Connect(function()
+	local room = workspace.CurrentRooms[game:GetService("ReplicatedStorage").GameData.LatestRoom.Value]
+	if room:FindFirstChild("Assets") then
+		local paintings = {}
+		for i,painting in next,room:FindFirstChild("Assets"):GetChildren() do
+			if painting.Name:find("Painting") then
+				table.insert(paintings,painting)
+			end
+		end
+		if #paintings > 0 then
+			local currentpainting
+			if paintings[#paintings] then
+				painters = painters + 1
+				currentpainting = paintings[#paintings]
+			else
+				currentpainting = paintings[1]
+			end
+			if currentpainting then
+				if currentpainting:FindFirstChild("Canvas") then
+					local selected = paints[math.random(1,#paints)]
+					if currentpainting:FindFirstChild("InteractPrompt") then
+						local cloning = currentpainting:FindFirstChild("InteractPrompt"):Clone() cloning.Name = "fakeInteract"
+						cloning.Parent = currentpainting
+						currentpainting:FindFirstChild("InteractPrompt"):Destroy()
+						local t = cloning.Triggered:Connect(function()
+                            require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(string.gsub("This painting is titled \"NAMEOFTHING\"","NAMEOFTHING",selected[2]),true)
+						end)
+					end
+					currentpainting:FindFirstChild("Canvas"):FindFirstChild("SurfaceGui"):FindFirstChild("ImageLabel").Image = selected[1]
+				end
+			end
+		end
+	end
+end)
+
 game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
     task.wait(1)
     if room:FindFirstChild("PathfindNodes") then
