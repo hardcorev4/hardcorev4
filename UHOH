@@ -213,7 +213,7 @@ task.spawn(function()
                 zerostamtween:Play()
                 while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
                     stamina = math.max(stamina - 1, 0)
-                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 5)
+                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
                     task.wait(sprintTime / 100)
                     
                 end
@@ -478,17 +478,24 @@ task.spawn(function()
                                 clone.Parent = game.Workspace
                                 ripper:Destroy()
 
-                                local twier:Tween = game.TweenService:Create(game.Workspace.CurrentCamera,TweenInfo.new(0.3,Enum.EasingStyle.Circular,Enum.EasingDirection.InOut),{CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position,clone.Position + Vector3.new(0,5,0))})
-                                twier:Play()
-                                twier.Completed:Wait()
+                                clone.ripe.ParticleEmitter.Texture = "rbxassetid://11816152645"
 
+                                local helper = Instance.new("Part",game.workspace)
+                                helper.Anchored = true
+                                helper.Transparency = 1
+                                helper.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
+                            
                                 game:GetService("RunService").RenderStepped:Connect(function()
                                     if game.Players.LocalPlayer.Character.Humanoid.Health >= 1 then
-                                        game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.workspace.currentCamera.CFrame.Position, clone.Position + Vector3.new(0,5,0))
+                                        game.Workspace.CurrentCamera.CFrame = helper.CFrame
                                     else
                                         return
                                     end
                                 end)
+
+                                local twier:Tween = game.TweenService:Create(helper,TweenInfo.new(0.3,Enum.EasingStyle.Circular,Enum.EasingDirection.InOut),{CFrame = CFrame.lookAt(helper.Position,clone.Position + Vector3.new(0,5,0))})
+                                twier:Play()
+                                twier.Completed:Wait()
 
                                 for _ , object: Instance in clone:GetDescendants() do
                                     if object:IsA("Sound") then
@@ -511,7 +518,7 @@ task.spawn(function()
 
                                 local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
                                 local image = Instance.new("ImageLabel",gui)
-                                image.Size = UDim2.new(0,1550,0,1000)
+                                image.Size = UDim2.new(1,0,1,0)
                                 image.AnchorPoint = Vector2.new(0.5,0.5)
                                 image.Position = UDim2.new(0.5,0,0.5,0)
                                 image.Image = "http://www.roblox.com/asset/?id=14412047172"
@@ -546,6 +553,7 @@ task.spawn(function()
                                 sound:Destroy()
                                 scare:Destroy()
                                 jump:Destroy()
+                                clone:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.2,Enum.EasingStyle.Linear),{ImageTransparency = 1}):Play()
                                 firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Ripper...","You can tell his presence by the lights and his scream.","Hide when he does this!"},"Blue")
