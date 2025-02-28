@@ -1,5 +1,5 @@
 print("Loade")
-
+https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/Im%20Scared.MP3
 task.spawn(function()
 	if _G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB then return end
 	_G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB = true
@@ -465,7 +465,7 @@ task.spawn(function()
                                     return Sound 
                                 end
 
-                                local scare = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/0104.mp3", "ScaryRipper")
+                                local scare = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/Im%20Scared.MP3", "RipperJumpscareOMG")
                                 scare.Parent = game.Workspace
                                 scare.Volume = 1.5
 
@@ -506,14 +506,9 @@ task.spawn(function()
                                 end
 
                                 task.wait(0.29)
-
-                                local jump = Instance.new("Sound",game.Workspace) 
-                                jump.SoundId = "rbxassetid://7017782324"
-                                jump.Volume = 1.5
                                 
                                 scare:Play()
                                 task.wait(0.21)
-                                jump:Play()
                                 task.wait(0.5)
 
                                 local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
