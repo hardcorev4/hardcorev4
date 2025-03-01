@@ -286,7 +286,7 @@ for i,v in pairs(game.ReplicatedStorage.Misc.Eyes:GetDescendants()) do
 	end
 end
 
-local captions = {"Good luck!","Have fun! (you wont)","Do Not","Freaky ! Xfest all my homies hate ! Xfest","Holy ####... Lois","who th is joe????","Special Thanks To Muhammed!","Extra help by realCat#3509","Happy new year!"}
+local captions = {"Good luck!","Have fun! (you wont)","Do Not","F#ck Uner all my homies hate Uner","Holy ####... Lois","who th is joe????","Special Thanks To Muhammed!","Extra help by realCat#3509","Happy new year!"}
 
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Hardcore v4 recreated version by LocalPlayer loaded",true)
 
@@ -374,6 +374,7 @@ game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
         local temlate = getGitSoundId("https://github.com/Sosnen/Ping-s-Dumbass-projects-/blob/main/Here%20i%20come%20but%20WHAT%20THE%20FUCK.mp3?raw=true","NewSeekMusic")
 
         local RealSeek = workspace:FindFirstChild(SeekMoving)
+	RealSeek.Name = "chat is it reall?"
         RealSeek.SeekMusic.SoundId = temlate.SoundId
         local RealSeekRig = RealSeek:FindFirstChild("SeekRig")
         local seekNew = game:GetObjects("rbxassetid://11664451634")[1] 
@@ -527,7 +528,7 @@ task.spawn(function()
 
                                 local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
                                 local image = Instance.new("ImageLabel",gui)
-                                image.Size = UDim2.new(1,0,1,0)
+                                image.Size = UDim2.new(1.2,0,1.2,0)
                                 image.AnchorPoint = Vector2.new(0.5,0.5)
                                 image.Position = UDim2.new(0.5,0,0.5,0)
                                 image.Image = "http://www.roblox.com/asset/?id=14412047172"
@@ -844,7 +845,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while task.wait(314) do
+    while task.wait(308) do
         if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
             game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
             local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
@@ -910,7 +911,7 @@ task.spawn(function()
                                 kill:Play()
                                 local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
                                 local image = Instance.new("ImageLabel",gui)
-                                image.Size = UDim2.new(0,1550,0,1000)
+                                image.Size = UDim2.new(1.2,0,1.2,0)
                                 image.AnchorPoint = Vector2.new(0.5,0.5)
                                 image.Position = UDim2.new(0.5,0,0.5,0)
                                 image.Image = "http://www.roblox.com/asset/?id=14412047172"
@@ -918,7 +919,7 @@ task.spawn(function()
                                 image.ImageTransparency = 1
 
                                 local image1 = Instance.new("ImageLabel",gui)
-                                image1.Size = UDim2.new(0,50,0,25)
+                                image1.Size = UDim2.new(0.1,0,0.1,0)
                                 image1.AnchorPoint = Vector2.new(0.5,0.5)
                                 image1.Position = UDim2.new(0.5,0,0.5,0)
                                 image1.Image = "http://www.roblox.com/asset/?id=18853595150"
@@ -941,7 +942,7 @@ task.spawn(function()
                                 end)
 
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.4,Enum.EasingStyle.Linear),{ImageTransparency = 0}):Play()
-                                game:GetService("TweenService"):Create(image1,TweenInfo.new(0.4),{Size = UDim2.new(0,4000,0,2000)}):Play()
+                                game:GetService("TweenService"):Create(image1,TweenInfo.new(0.4),{Size = UDim2.new(1,0,1,0)}):Play()
 
                                 task.wait(0.8)
 
