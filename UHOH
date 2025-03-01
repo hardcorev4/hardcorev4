@@ -353,6 +353,9 @@ game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
     if nods then
         if room:FindFirstChild("FigureSetup") then
             nods = room.FigureSetup:FindFirstChild("FigureNodes")
+	    for _ , v in nods:GetChildren() do
+		if v.Name ~= "1" then v:Destroy() end
+	    end
         end
         local nodes = nods:Clone()
         nodes.Parent = room
