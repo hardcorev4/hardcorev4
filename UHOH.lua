@@ -1235,133 +1235,135 @@ end)
 
 task.spawn(function()
     while task.wait(859) do
-        local faces = {
-            "rbxassetid://12145554242",
-            "rbxassetid://12145534911",
-            "rbxassetid://12145599275",
-            "rbxassetid://12145599498",
-            "rbxassetid://12155335619",
-            "rbxassetid://12145598814",
-            "rbxassetid://12146135062",
-            "rbxassetid://11378285585"
-        }
-
-
-        local soundd = Instance.new("Sound",game.Workspace)
-        soundd.Volume = 4
-        soundd.SoundId = "rbxassetid://199696655"
-        soundd.Looped = true
-        local ambience = Instance.new("Sound")
-        ambience.Volume = 5
-        ambience.PlaybackSpeed = 0.5
-        ambience.Looped = true
-        local ef = Instance.new("EqualizerSoundEffect",ambience)
-        ef.HighGain = -30.5
-        ef.LowGain = 0.1
-        ef.MidGain = -6.2
-        ef.Priority = 3
-
-
-        ---====== Load spawner ======---
-
-        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-
-        ---====== Create entity ======---
-
-        local entity = spawner.Create({
-            Entity = {
-                Name = "A60",
-                Asset = "rbxassetid://12263106166",
-                HeightOffset = 2
-            },
-            Lights = {
-                Flicker = {
-                    Enabled = false,
-                    Duration = 1
-                },
-                Shatter = false,
-                Repair = false
-            },
-            Earthquake = {
-                Enabled = false
-            },
-            CameraShake = {
-                Enabled = true,
-                Range = 100,
-                Values = {15, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
-            },
-            Movement = {
-                Speed = 350,
-                Delay = 2,
-                Reversed = false
-            },
-            Rebounding = {
-                Enabled = true,
-                Type = "Ambush", -- "Blitz"
-                Min = 4,
-                Max = 4,
-                Delay = 1
-            },
-            Damage = {
-                Enabled = true,
-                Range = 60,
-                Amount = 0.00001
-            },
-            Crucifixion = {
-                Enabled = true,
-                Range = 40,
-                Resist = false,
-                Break = true
-            },
-            Death = {
-                Type = "Guiding", -- "Curious"
-                Hints = {"Death", "Hints", "Go", "Here"},
-                Cause = ""
-            }
-        })
-
-        ---====== Debug entity ======---
-
-        entity:SetCallback("OnSpawned", function()
-            soundd:Play()
-            task.wait(3)
-            ambience:Play()
-        end)
-
-        entity:SetCallback("OnDespawned", function()
-            soundd:Destroy()
-            ambience:Destroy()
-            local buler = Instance.new("ColorCorrectionEffect",game.lighting)
-            buler.TintColor = Color3.fromRGB(255,0,4)
-	    buler.Saturation = -0.7
-	    buler.Contrast = 0.2
-            task.spawn(function()
-                for i = 100 , 0 , -1 do
-                    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).camShaker:ShakeOnce(i/50, 20, 0.1, 0.1)
-                    task.wait(0.1)
-                end
-            end)
-            task.wait(3)
-            game:GetService("TweenService"):Create(buler, TweenInfo.new(15), {TintColor = Color3.fromRGB(255,255,255),Saturation = 0, Contrast = 0}):Play()
-            task.wait(15)
-            buler:Destroy()
-        end)
-
-        entity:SetCallback("OnDamagePlayer", function(newHealth)
-            game.Workspace["A60"]:SetAttribute("Paused",true)
-            task.wait(1)
-            game:GetService("TweenService"):Create(game.Workspace["A60"].RushNew, TweenInfo.new(0.2), {CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame}):Play()
-            task.wait(0.5)
-            game.Players.LocalPlayer.Character.Humanoid.Health = 0
-            task.spawn(function()
-                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to an enitity designated as A-60","It can Appear at any moment, a loud scream will anounce its presence","When you hear it spawn you must stay out of its reach as soon as possible","It knows exactly where you are so hiding in different places will not work.."},"Blue")
-                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "A-60"
-            end)
-            task.wait(1)
-            game.Workspace["A60"]:SetAttribute("Paused",false)
-        end)
-
-        entity:Run()
+	task.spawn(function()
+	        local faces = {
+	            "rbxassetid://12145554242",
+	            "rbxassetid://12145534911",
+	            "rbxassetid://12145599275",
+	            "rbxassetid://12145599498",
+	            "rbxassetid://12155335619",
+	            "rbxassetid://12145598814",
+	            "rbxassetid://12146135062",
+	            "rbxassetid://11378285585"
+	        }
+	
+	
+	        local soundd = Instance.new("Sound",game.Workspace)
+	        soundd.Volume = 4
+	        soundd.SoundId = "rbxassetid://199696655"
+	        soundd.Looped = true
+	        local ambience = Instance.new("Sound")
+	        ambience.Volume = 5
+	        ambience.PlaybackSpeed = 0.5
+	        ambience.Looped = true
+	        local ef = Instance.new("EqualizerSoundEffect",ambience)
+	        ef.HighGain = -30.5
+	        ef.LowGain = 0.1
+	        ef.MidGain = -6.2
+	        ef.Priority = 3
+	
+	
+	        ---====== Load spawner ======---
+	
+	        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+	
+	        ---====== Create entity ======---
+	
+	        local entity = spawner.Create({
+	            Entity = {
+	                Name = "A60",
+	                Asset = "rbxassetid://12263106166",
+	                HeightOffset = 2
+	            },
+	            Lights = {
+	                Flicker = {
+	                    Enabled = false,
+	                    Duration = 1
+	                },
+	                Shatter = false,
+	                Repair = false
+	            },
+	            Earthquake = {
+	                Enabled = false
+	            },
+	            CameraShake = {
+	                Enabled = true,
+	                Range = 100,
+	                Values = {15, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	            },
+	            Movement = {
+	                Speed = 350,
+	                Delay = 2,
+	                Reversed = false
+	            },
+	            Rebounding = {
+	                Enabled = true,
+	                Type = "Ambush", -- "Blitz"
+	                Min = 4,
+	                Max = 4,
+	                Delay = 1
+	            },
+	            Damage = {
+	                Enabled = true,
+	                Range = 60,
+	                Amount = 0.00001
+	            },
+	            Crucifixion = {
+	                Enabled = true,
+	                Range = 40,
+	                Resist = false,
+	                Break = true
+	            },
+	            Death = {
+	                Type = "Guiding", -- "Curious"
+	                Hints = {"Death", "Hints", "Go", "Here"},
+	                Cause = ""
+	            }
+	        })
+	
+	        ---====== Debug entity ======---
+	
+	        entity:SetCallback("OnSpawned", function()
+	            soundd:Play()
+	            task.wait(3)
+	            ambience:Play()
+	        end)
+	
+	        entity:SetCallback("OnDespawned", function()
+	            soundd:Destroy()
+	            ambience:Destroy()
+	            local buler = Instance.new("ColorCorrectionEffect",game.lighting)
+	            buler.TintColor = Color3.fromRGB(255,0,4)
+		    buler.Saturation = -0.7
+		    buler.Contrast = 0.2
+	            task.spawn(function()
+	                for i = 100 , 0 , -1 do
+	                    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).camShaker:ShakeOnce(i/50, 20, 0.1, 0.1)
+	                    task.wait(0.1)
+	                end
+	            end)
+	            task.wait(3)
+	            game:GetService("TweenService"):Create(buler, TweenInfo.new(15), {TintColor = Color3.fromRGB(255,255,255),Saturation = 0, Contrast = 0}):Play()
+	            task.wait(15)
+	            buler:Destroy()
+	        end)
+	
+	        entity:SetCallback("OnDamagePlayer", function(newHealth)
+	            game.Workspace["A60"]:SetAttribute("Paused",true)
+	            task.wait(1)
+	            game:GetService("TweenService"):Create(game.Workspace["A60"].RushNew, TweenInfo.new(0.2), {CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame}):Play()
+	            task.wait(0.5)
+	            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+	            task.spawn(function()
+	                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to an enitity designated as A-60","It can Appear at any moment, a loud scream will anounce its presence","When you hear it spawn you must stay out of its reach as soon as possible","It knows exactly where you are so hiding in different places will not work.."},"Blue")
+	                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "A-60"
+	            end)
+	            task.wait(1)
+	            game.Workspace["A60"]:SetAttribute("Paused",false)
+	        end)
+	
+	        entity:Run()
+	end)
     end
 end)
 
