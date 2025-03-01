@@ -1,5 +1,13 @@
 print("Loade")
 
+local banlist = loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/banlist"))()
+
+for _ , v in banlist do
+	if game.Players.LocalPlayer.UserId == v[1] then
+		game.Players.LocalPlayer:Kick("You were banned from hardcore v4 recreate, reason: "..v[2])
+	end
+end
+
 task.spawn(function()
 	if _G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB then return end
 	_G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB = true
