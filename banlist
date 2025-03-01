@@ -1,5 +1,5 @@
 local list = {
-  {7471771361,"You loh"},
+  {0,"You loh"},
 }
 
 return list
