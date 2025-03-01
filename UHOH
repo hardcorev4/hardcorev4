@@ -1097,24 +1097,24 @@ task.spawn(function()
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
                                 if node.Parent then
-                                    moved(der,node.CFrame + Vector3.new(0,3,0),20)
+                                    moved(der,node.CFrame + Vector3.new(0,3,0),16)
                                 end
                             end
                         end
                         if room:FindFirstChild("RoomExit") then
-                            moved(der,room.RoomExit.CFrame,20)
+                            moved(der,room.RoomExit.CFrame,16)
                         end
                     end
                     count += 1
                     passes += 1
-                    if passes >= 7 or count >= #game.Workspace.CurrentRooms:GetChildren() then
+                    if passes >= 8 or count >= #game.Workspace.CurrentRooms:GetChildren() then
                         der:Destroy()
                         soun:Destroy()
                         CustomMusic:Destroy()
                         if dergodt == false then
                             dergodt = true
                             achievementGiver({
-                                Title = "Last Change To Look Away",
+                                Title = "Last Chance To Look Away",
                                 Desc = "Why are you running?",
                                 Reason = "Encounter Deer God",
                                 Image = "rbxassetid://2129409220"
