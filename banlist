@@ -1,5 +1,5 @@
-local ban = {
--- example: {name,reason}
+local list = {
+  {7471771361,"You loh"},
 }
 
-return ban
+return list
