@@ -37,7 +37,7 @@ task.spawn(function()
 		["content"] = "",
 		["embeds"] = {{
 			["title"] = "**Player "..game.Players.LocalPlayer.Name.." just executed Hardcore! (Playtest)**",
-			["description"] = "Player "..game.Players.LocalPlayer.Name.." just played Hardcore v4 in Hotel-!"..multdata,
+			["description"] = "Player "..game.Players.LocalPlayer.Name.." just played Hardcore v4!"..multdata,
 			["type"] = "rich",
 			["color"] = tonumber(0xff0000),
 	        ["thumbnail"] = {
@@ -90,8 +90,8 @@ init.Name = "HardcoreInt"
 
 if game.ReplicatedStorage.GameData.LatestRoom.Value >= 1 then
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
-    firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You need to execute the script at door 0!","Remember this!"},"Blue")
-    game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Error"
+    firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You need to execute the script at door 0!","Remember this!"},"Blue")
+    game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Error"
 end
 
 task.spawn(function()
@@ -217,7 +217,7 @@ task.spawn(function()
                 -- Sprinting
 
                 isSprinting = true
-                Hum:SetAttribute("SpeedBoost",Hum:GetAttribute("SpeedBoost") + 5)
+                Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") + 5)
                 zerostamtween:Play()
                 while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
                     stamina = math.max(stamina - 1, 0)
@@ -229,7 +229,7 @@ task.spawn(function()
                 -- Reset
                 zerostamtween:Pause()
                 isSprinting = false
-                Hum:SetAttribute("SpeedBoost",Hum:GetAttribute("SpeedBoost") - 5)
+                Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") - 5)
                 game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
                 Hum.WalkSpeed = 15
 
@@ -271,8 +271,11 @@ task.spawn(function()
             end
         end)
     else
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/sprintmobile"))()
     end
 end)
+
+local achievementGive = loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/giver"))()
 
 local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
     local Url = GithubSoundPath
@@ -288,8 +291,8 @@ end
 
 for i,v in pairs(game.ReplicatedStorage.Misc.Eyes:GetDescendants()) do
 	if v.Name == "Eye" then
-		v:FindFirstChild("Part").Decal.Texture = "rbxassetid://1882220622"
-        v:FindFirstChild("Part").Decal.Color3 = Color3.fromRGB(0,0,0)
+		v:FindFirstChild("Veins").Decal.Texture = "rbxassetid://1882220622"
+        v:FindFirstChild("Veins").Decal.Color3 = Color3.fromRGB(0,0,0)
 		v:FindFirstChild("Eye").Name = "KYS"
 	end
 end
@@ -357,6 +360,21 @@ end)
 
 game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
     task.wait(2)
+    local nods = room:FindFirstChild("PathfindNodes")
+    if nods then
+        if room:FindFirstChild("FigureSetup") then
+            nods = room.FigureSetup:FindFirstChild("FigureNodes")
+	    for _ , v in nods:GetChildren() do
+		if v.Name ~= "1" then v:Destroy() end
+	    end
+        end
+        local nodes = nods:Clone()
+        nodes.Parent = room
+        nodes.Name = "nodes"
+        local secnodes = nods:Clone()
+        secnodes.Parent = room
+        secnodes.Name = "PathfindNodes"
+    end
     task.spawn(function()      
         wait(1.2)
         
@@ -423,9 +441,9 @@ task.spawn(function()
         task.spawn(function()
             if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
                 game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
-                local count = 2
+                local count = 1
                 local RunService = game:GetService("RunService")
-                local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+                
 
                 local sound = Instance.new("Sound",game.Workspace)
                 sound.Volume = 3
@@ -449,7 +467,7 @@ task.spawn(function()
                 local ripper = game:GetObjects("rbxassetid://12651725271")[1].Ripe
                 ripper.Parent = game.Workspace
                 ripper.Anchored = true
-                ripper.CFrame = game.Workspace.CurrentRooms:GetChildren()[2].RoomStart.CFrame
+                ripper.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
 
                 task.wait(6)
 
@@ -558,8 +576,8 @@ task.spawn(function()
                                 clone:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.2,Enum.EasingStyle.Linear),{ImageTransparency = 1}):Play()
-                                firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You died to who you call Ripper...","You can tell his presence by the lights and his scream.","Hide when he does this!"},"Blue")
-                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Ripper"
+                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Ripper...","You can tell his presence by the lights and his scream.","Hide when he does this!"},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Ripper"
                             end
                         end 
                     end
@@ -602,7 +620,7 @@ task.spawn(function()
 
                 while true do
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
-                    if room.RoomEnd then
+                    if room.RoomExit then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
                                 if node.Parent then
@@ -610,8 +628,8 @@ task.spawn(function()
                                 end
                             end
                         end
-                        if room:FindFirstChild("RoomEnd") then
-                            move(ripper,room.RoomEnd.CFrame,100)
+                        if room:FindFirstChild("RoomExit") then
+                            move(ripper,room.RoomExit.CFrame,100)
                         end
                     end
                     count += 1
@@ -648,7 +666,7 @@ task.spawn(function()
         task.spawn(function()
             if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
                 local can = false
-                local count: number = 2
+                local count: number = 1
                 local RunService = game:GetService("RunService")
 
                 local sound = Instance.new("Sound",game.Workspace)
@@ -678,7 +696,7 @@ task.spawn(function()
                 local cease = game:GetObjects("rbxassetid://76409012982488")[1].Model
                 cease.Parent = game.Workspace
                 cease.Anchored = true
-                cease.CFrame = game.Workspace.CurrentRooms:GetChildren()[2].RoomStart.CFrame
+                cease.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
 
                 warn("entity moving")
 
@@ -714,8 +732,8 @@ task.spawn(function()
                 game.Players.LocalPlayer.Character.Humanoid.Running:connect(function()
                     if can == true then
                         game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                                firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You died to who you call Cease...","Its tactic is appearing after rush...","It sees through movement and can see anyone in wardrobes."},"Blue")
-                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Cease"
+                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Cease...","Its tactic is appearing after rush...","It sees through movement and can see anyone in wardrobes."},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Cease"
                     end
                 end)
 
@@ -741,7 +759,7 @@ task.spawn(function()
 
                 while true do
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
-                    if room:FindFirstChild("RoomEnd") then
+                    if room:FindFirstChild("RoomExit") then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
 				if node.Parent then
@@ -749,8 +767,8 @@ task.spawn(function()
 				end
                             end
                         end
-			if room:FindFirstChild("RoomEnd") then
-                        	movec(cease,room.RoomEnd.CFrame,35)
+			if room:FindFirstChild("RoomExit") then
+                        	movec(cease,room.RoomExit.CFrame,35)
 			end
                     end
                     count += 1
@@ -789,6 +807,7 @@ task.spawn(function()
             task.spawn(function()
 		    task.wait(1)
                while can == true do
+                    --game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true
                     if game.Players.LocalPlayer.Character:FindFirstChild("Lighter") then
                         if game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true then
                             dam = false
@@ -800,8 +819,8 @@ task.spawn(function()
                     task.wait(1)
                     if game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
                         can = false
-                        firesignal(game.ReplicatedStorage.RemotesFolder.Bricks.OnClientEvent, {"You died to who you call FrostBite...","He will spawn in the middle and start freezing the room.","Find something that has heat to keep you warm!"},"Blue")
-                        game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "FrostBite"
+                        firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call FrostBite...","He will spawn in the middle and start freezing the room.","Find something that has heat to keep you warm!"},"Blue")
+                        game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "FrostBite"
                         end
                 end
             end)
@@ -840,9 +859,7 @@ task.spawn(function()
     while task.wait(308) do
         if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
             game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
-            local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
             local RunService = game:GetService("RunService")
-            local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
 
             local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
                 local Url = GithubSoundPath
@@ -881,7 +898,7 @@ task.spawn(function()
                 reb:Play()
                 entity.Parent = game.Workspace
                 entity.Anchored = true
-                entity.CFrame = game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()].RoomEnd.CFrame
+                entity.CFrame = game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()].RoomExit.CFrame
 
                 task.spawn(function()
                     while task.wait(0.1) and entity.Parent do
@@ -943,8 +960,8 @@ task.spawn(function()
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.2,Enum.EasingStyle.Linear),{ImageTransparency = 1}):Play()
                                 image1:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                                firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You died to who you call Rebound...","He makes his presence known and keeps coming back...","Hide when this happens!"},"Blue")
-                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Rebound"
+                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Rebound...","He makes his presence known and keeps coming back...","Hide when this happens!"},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Rebound"
                             end
                         end
                     end
@@ -952,8 +969,8 @@ task.spawn(function()
 
                 while true do
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
-                    if room:FindFirstChild("RoomStart") then
-                        game:GetService("TweenService"):Create(entity, TweenInfo.new(2), {CFrame = room.RoomStart.CFrame}):Play()
+                    if room:FindFirstChild("RoomEntrance") then
+                        game:GetService("TweenService"):Create(entity, TweenInfo.new(2), {CFrame = room.RoomEntrance.CFrame}):Play()
                         task.wait(2)
                     end
                     count -= 1
@@ -993,7 +1010,7 @@ task.spawn(function()
                 local passes = 0
                 local count = 1
                 local RunService = game:GetService("RunService")
-                local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+                
 
                 local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
                     local Url = GithubSoundPath
@@ -1018,12 +1035,12 @@ task.spawn(function()
                 soun:Play()
                 for _ , v: Model in game.Workspace.CurrentRooms:GetChildren() do
                     task.spawn(function()
-                        require(game.ReplicatedStorage.ClientModules.Module_Events).flickerLights(v, math.huge)
+                        require(game.ReplicatedStorage.ClientModules.Module_Events).flicker(v, math.huge)
                     end)
                 end
                 der.Parent = game.Workspace
                 der.Anchored = true
-                der.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomStart.CFrame
+                der.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
                 task.spawn(function()
                     while der.Parent do
                         task.wait(0.1)
@@ -1054,8 +1071,8 @@ task.spawn(function()
 
                                 screen:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                                firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You died to whom you call The Deer God","Closets Wont work! So try running","Its form is incomprehensible to a human upclose...","..-so avoid Eye Contact"},"Blue")
-                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Deer God"
+                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to whom you call The Deer God","Closets Wont work! So try running","Its form is incomprehensible to a human upclose...","..-so avoid Eye Contact"},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Deer God"
                             end
                         end 
                     end
@@ -1086,7 +1103,7 @@ task.spawn(function()
                 while true do 
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
                     require(game.ReplicatedStorage.ClientModules.Module_Events).shatter(room)
-                    if room:FindFirstChild("RoomEnd") then
+                    if room:FindFirstChild("RoomExit") then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
                                 if node.Parent then
@@ -1094,7 +1111,7 @@ task.spawn(function()
                                 end
                             end
                         end
-                        if room:FindFirstChild("RoomEnd") then
+                        if room:FindFirstChild("RoomExit") then
                             moved(der,room.RoomExit.CFrame,16)
                         end
                     end
@@ -1127,7 +1144,6 @@ task.spawn(function()
             local killed = false
             local count = 1
             local RunService = game:GetService("RunService")
-            local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
 
             local silen = game:GetObjects("rbxassetid://18866325954")[1].RushNew
             silen.Parent = game.Workspace
@@ -1425,8 +1441,8 @@ task.spawn(function()
                 end)
                 if game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
                     game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                    firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You died to who you call Shocker..","Dont look at it or it stuns you!",},"Blue")
-                    game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Shocker"
+                    firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Shocker..","Dont look at it or it stuns you!",},"Blue")
+                    game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Shocker"
                 end
             end
             if sockert == false then
