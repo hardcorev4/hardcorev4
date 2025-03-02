@@ -37,7 +37,7 @@ task.spawn(function()
 		["content"] = "",
 		["embeds"] = {{
 			["title"] = "**Player "..game.Players.LocalPlayer.Name.." just executed Hardcore! (Playtest)**",
-			["description"] = "Player "..game.Players.LocalPlayer.Name.." just played Hardcore v4!"..multdata,
+			["description"] = "Player "..game.Players.LocalPlayer.Name.." just played Hardcore v4 in Hotel-!"..multdata,
 			["type"] = "rich",
 			["color"] = tonumber(0xff0000),
 	        ["thumbnail"] = {
@@ -217,7 +217,7 @@ task.spawn(function()
                 -- Sprinting
 
                 isSprinting = true
-                Hym:SetAttribute("SpeedBoost",Hum:GetAttribute("SpeedBoost") + 5)
+                Hum:SetAttribute("SpeedBoost",Hum:GetAttribute("SpeedBoost") + 5)
                 zerostamtween:Play()
                 while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
                     stamina = math.max(stamina - 1, 0)
@@ -288,8 +288,8 @@ end
 
 for i,v in pairs(game.ReplicatedStorage.Misc.Eyes:GetDescendants()) do
 	if v.Name == "Eye" then
-		v:FindFirstChild("Veins").Decal.Texture = "rbxassetid://1882220622"
-        v:FindFirstChild("Veins").Decal.Color3 = Color3.fromRGB(0,0,0)
+		v:FindFirstChild("Part").Decal.Texture = "rbxassetid://1882220622"
+        v:FindFirstChild("Part").Decal.Color3 = Color3.fromRGB(0,0,0)
 		v:FindFirstChild("Eye").Name = "KYS"
 	end
 end
@@ -626,7 +626,7 @@ task.spawn(function()
                             end
                         end
                         if room:FindFirstChild("RoomEnd") then
-                            move(ripper,room.RoomExit.CFrame,100)
+                            move(ripper,room.RoomEnd.CFrame,100)
                         end
                     end
                     count += 1
