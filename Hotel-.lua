@@ -217,7 +217,7 @@ task.spawn(function()
                 -- Sprinting
 
                 isSprinting = true
-                Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") + 5)
+                Hym:SetAttribute("SpeedBoost",Hum:GetAttribute("SpeedBoost") + 5)
                 zerostamtween:Play()
                 while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
                     stamina = math.max(stamina - 1, 0)
@@ -229,7 +229,7 @@ task.spawn(function()
                 -- Reset
                 zerostamtween:Pause()
                 isSprinting = false
-                Char:SetAttribute("SpeedBoost",Char:GetAttribute("SpeedBoost") - 5)
+                Hum:SetAttribute("SpeedBoost",Hum:GetAttribute("SpeedBoost") - 5)
                 game.TweenService:Create(ImageLabel,TweenInfo.new(1),{ImageTransparency = 1}):Play()
                 Hum.WalkSpeed = 15
 
@@ -271,7 +271,6 @@ task.spawn(function()
             end
         end)
     else
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/sprintmobile"))()
     end
 end)
 
@@ -465,7 +464,7 @@ task.spawn(function()
                 local ripper = game:GetObjects("rbxassetid://12651725271")[1].Ripe
                 ripper.Parent = game.Workspace
                 ripper.Anchored = true
-                ripper.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
+                ripper.CFrame = game.Workspace.CurrentRooms:GetChildren()[2].RoomStart.CFrame
 
                 task.wait(6)
 
@@ -626,7 +625,7 @@ task.spawn(function()
                                 end
                             end
                         end
-                        if room:FindFirstChild("RoomExit") then
+                        if room:FindFirstChild("RoomEnd") then
                             move(ripper,room.RoomExit.CFrame,100)
                         end
                     end
