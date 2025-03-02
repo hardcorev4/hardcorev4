@@ -617,7 +617,7 @@ task.spawn(function()
 
                 while true do
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
-                    if room.RoomExit then
+                    if room.RoomEnd then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
                                 if node.Parent then
@@ -693,7 +693,7 @@ task.spawn(function()
                 local cease = game:GetObjects("rbxassetid://76409012982488")[1].Model
                 cease.Parent = game.Workspace
                 cease.Anchored = true
-                cease.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
+                cease.CFrame = game.Workspace.CurrentRooms:GetChildren()[2].RoomStart.CFrame
 
                 warn("entity moving")
 
@@ -729,7 +729,7 @@ task.spawn(function()
                 game.Players.LocalPlayer.Character.Humanoid.Running:connect(function()
                     if can == true then
                         game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Cease...","Its tactic is appearing after rush...","It sees through movement and can see anyone in wardrobes."},"Blue")
+                                firesignal(game.ReplicatedStorage.EntityInfo.DeathHint.OnClientEvent, {"You died to who you call Cease...","Its tactic is appearing after rush...","It sees through movement and can see anyone in wardrobes."},"Blue")
                                 game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Cease"
                     end
                 end)
@@ -756,7 +756,7 @@ task.spawn(function()
 
                 while true do
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
-                    if room:FindFirstChild("RoomExit") then
+                    if room:FindFirstChild("RoomEnd") then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
 				if node.Parent then
@@ -764,8 +764,8 @@ task.spawn(function()
 				end
                             end
                         end
-			if room:FindFirstChild("RoomExit") then
-                        	movec(cease,room.RoomExit.CFrame,35)
+			if room:FindFirstChild("RoomEnd") then
+                        	movec(cease,room.RoomEnd.CFrame,35)
 			end
                     end
                     count += 1
