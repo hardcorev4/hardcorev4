@@ -10,14 +10,6 @@ local TS = game:GetService("TweenService")
 
 local Plr = Players.LocalPlayer
 
-local SelfModules = {
-    Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
-}
-local ModuleScripts = {
-    Achievements = require(ReSt.Achievements),
-    AchievementUnlock = require(Plr.PlayerGui.MainUI.Initiator["old uistuff"].RemoteListener.Modules.AchievementUnlock)
-}
-
 local Achievements
 
 -- Functions
