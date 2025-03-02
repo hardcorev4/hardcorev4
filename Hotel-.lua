@@ -934,7 +934,7 @@ task.spawn(function()
                                 end)
 
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.4,Enum.EasingStyle.Linear),{ImageTransparency = 0}):Play()
-                                game:GetService("TweenService"):Create(image1,TweenInfo.new(0.4),{Size = UDim2.new(1,0,1,0)}):Play()
+                                game:GetService("TweenService"):Create(image1,TweenInfo.new(0.4),{Size = UDim2.new(2.5,0,2.5,0)}):Play()
 
                                 task.wait(0.8)
 
