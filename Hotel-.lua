@@ -85,7 +85,7 @@ if game.Workspace:FindFirstChild("HardcoreInt") then
     return
 end
 
-local achievementGive = loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/giver"))()
+local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/giver"))()
 
 local init = Instance.new("BoolValue",game.Workspace)
 init.Name = "HardcoreInt"
