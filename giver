@@ -15,7 +15,7 @@ local SelfModules = {
 }
 local ModuleScripts = {
     Achievements = require(ReSt.Achievements),
-    AchievementUnlock = require(Plr.PlayerGui.MainUI.Initiator.Main_Lobby.RemoteListener.Modules.AchievementUnlock)
+    AchievementUnlock = require(Plr.PlayerGui.MainUI.Initiator.Main_Game.RemoteListener.Modules.AchievementUnlock)
 }
 
 local Achievements
