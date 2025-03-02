@@ -90,7 +90,7 @@ init.Name = "HardcoreInt"
 
 if game.ReplicatedStorage.GameData.LatestRoom.Value >= 1 then
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
-    firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You need to execute the script at door 0!","Remember this!"},"Blue")
+    firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You need to execute the script at door 0!","Remember this!"},"Blue")
     game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Error"
 end
 
@@ -789,7 +789,6 @@ task.spawn(function()
             task.spawn(function()
 		    task.wait(1)
                while can == true do
-                    --game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true
                     if game.Players.LocalPlayer.Character:FindFirstChild("Lighter") then
                         if game.Players.LocalPlayer.Character.Lighter:GetAttribute("Enabled") == true then
                             dam = false
@@ -801,8 +800,8 @@ task.spawn(function()
                     task.wait(1)
                     if game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
                         can = false
-                        firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call FrostBite...","He will spawn in the middle and start freezing the room.","Find something that has heat to keep you warm!"},"Blue")
-                        game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "FrostBite"
+                        firesignal(game.ReplicatedStorage.RemotesFolder.Bricks.OnClientEvent, {"You died to who you call FrostBite...","He will spawn in the middle and start freezing the room.","Find something that has heat to keep you warm!"},"Blue")
+                        game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "FrostBite"
                         end
                 end
             end)
@@ -882,7 +881,7 @@ task.spawn(function()
                 reb:Play()
                 entity.Parent = game.Workspace
                 entity.Anchored = true
-                entity.CFrame = game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()].RoomExit.CFrame
+                entity.CFrame = game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()].RoomEnd.CFrame
 
                 task.spawn(function()
                     while task.wait(0.1) and entity.Parent do
@@ -944,8 +943,8 @@ task.spawn(function()
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.2,Enum.EasingStyle.Linear),{ImageTransparency = 1}):Play()
                                 image1:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Rebound...","He makes his presence known and keeps coming back...","Hide when this happens!"},"Blue")
-                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Rebound"
+                                firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You died to who you call Rebound...","He makes his presence known and keeps coming back...","Hide when this happens!"},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Rebound"
                             end
                         end
                     end
@@ -953,8 +952,8 @@ task.spawn(function()
 
                 while true do
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
-                    if room:FindFirstChild("RoomEntrance") then
-                        game:GetService("TweenService"):Create(entity, TweenInfo.new(2), {CFrame = room.RoomEntrance.CFrame}):Play()
+                    if room:FindFirstChild("RoomStart") then
+                        game:GetService("TweenService"):Create(entity, TweenInfo.new(2), {CFrame = room.RoomStart.CFrame}):Play()
                         task.wait(2)
                     end
                     count -= 1
@@ -1019,12 +1018,12 @@ task.spawn(function()
                 soun:Play()
                 for _ , v: Model in game.Workspace.CurrentRooms:GetChildren() do
                     task.spawn(function()
-                        require(game.ReplicatedStorage.ClientModules.Module_Events).flicker(v, math.huge)
+                        require(game.ReplicatedStorage.ClientModules.Module_Events).flickerLights(v, math.huge)
                     end)
                 end
                 der.Parent = game.Workspace
                 der.Anchored = true
-                der.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomEntrance.CFrame
+                der.CFrame = game.Workspace.CurrentRooms:GetChildren()[1].RoomStart.CFrame
                 task.spawn(function()
                     while der.Parent do
                         task.wait(0.1)
@@ -1055,8 +1054,8 @@ task.spawn(function()
 
                                 screen:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to whom you call The Deer God","Closets Wont work! So try running","Its form is incomprehensible to a human upclose...","..-so avoid Eye Contact"},"Blue")
-                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Deer God"
+                                firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, {"You died to whom you call The Deer God","Closets Wont work! So try running","Its form is incomprehensible to a human upclose...","..-so avoid Eye Contact"},"Blue")
+                                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathReason.Value = "Deer God"
                             end
                         end 
                     end
@@ -1087,7 +1086,7 @@ task.spawn(function()
                 while true do 
                     local room = game.Workspace.CurrentRooms:GetChildren()[count]
                     require(game.ReplicatedStorage.ClientModules.Module_Events).shatter(room)
-                    if room:FindFirstChild("RoomExit") then
+                    if room:FindFirstChild("RoomEnd") then
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
                                 if node.Parent then
@@ -1095,7 +1094,7 @@ task.spawn(function()
                                 end
                             end
                         end
-                        if room:FindFirstChild("RoomExit") then
+                        if room:FindFirstChild("RoomEnd") then
                             moved(der,room.RoomExit.CFrame,16)
                         end
                     end
