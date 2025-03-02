@@ -275,8 +275,6 @@ task.spawn(function()
     end
 end)
 
-local achievementGive = loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/giver"))()
-
 local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
     local Url = GithubSoundPath
         
@@ -443,7 +441,7 @@ task.spawn(function()
                 game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
                 local count = 1
                 local RunService = game:GetService("RunService")
-                
+                local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
 
                 local sound = Instance.new("Sound",game.Workspace)
                 sound.Volume = 3
@@ -859,7 +857,9 @@ task.spawn(function()
     while task.wait(308) do
         if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
             game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+            local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
             local RunService = game:GetService("RunService")
+            local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
 
             local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
                 local Url = GithubSoundPath
@@ -1010,7 +1010,7 @@ task.spawn(function()
                 local passes = 0
                 local count = 1
                 local RunService = game:GetService("RunService")
-                
+                local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
 
                 local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
                     local Url = GithubSoundPath
@@ -1144,6 +1144,7 @@ task.spawn(function()
             local killed = false
             local count = 1
             local RunService = game:GetService("RunService")
+            local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
 
             local silen = game:GetObjects("rbxassetid://18866325954")[1].RushNew
             silen.Parent = game.Workspace
