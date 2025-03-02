@@ -1,5 +1,5 @@
 -- originaly made by vynixu
-
+print("new version")
 -- Services
 
 local Players = game:GetService("Players")
