@@ -1,5 +1,13 @@
 print("Loade")
 
+local banlist = loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/banlist"))()
+
+for _ , v in banlist do
+	if game.Players.LocalPlayer.UserId == v[1] then
+		game.Players.LocalPlayer:Kick("You were banned from hardcore v4 recreate, reason: "..v[2])
+	end
+end
+
 task.spawn(function()
 	if _G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB then return end
 	_G.VLGFHARVHUIERANUVIOAUERAIVASDVREAVDAFIUAEVRBAIUEVRAUYIDHFB = true
@@ -28,7 +36,7 @@ task.spawn(function()
 	{
 		["content"] = "",
 		["embeds"] = {{
-			["title"] = "**Player "..game.Players.LocalPlayer.Name.." just executed Hardcore!**",
+			["title"] = "**Player "..game.Players.LocalPlayer.Name.." just executed Hardcore! (Playtest)**",
 			["description"] = "Player "..game.Players.LocalPlayer.Name.." just played Hardcore v4!"..multdata,
 			["type"] = "rich",
 			["color"] = tonumber(0xff0000),
@@ -64,33 +72,12 @@ task.spawn(function()
 
 end)
 
-local banlist = loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/banlist"))()
-
-for _ , v in banlist do
-	if game.Players.LocalPlayer.UserId == v[1] then
-		game.Players.LocalPlayer:Kick("You were banned from hardcore v4 recreate, reason: "..v[2])
-	end
-end
-
-function loadfile(GithubSoundPath: string, AssetName: string)
-    local Url = GithubSoundPath
-
-    if not isfile(AssetName..".mp3") then 
-        writefile(AssetName..".mp3", game:HttpGet(Url)) 
-    end
-end
-
-
 if identifyexecutor() == "Xeno" or identifyexecutor() == "Solara V3" then
 	warn("detected xeno executor")
 	task.spawn(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/hardcorev4/hardcorev4/refs/heads/main/nightmare"))()
 	end)
 	error("Ignore this error")
-end
-
-if game.Players.LocalPlayer.UserId == 1287118331 or game.Players.LocalPlayer.UserId == 5765416451 then
-    game.Players.LocalPlayer:Kick("banned reason: calling my scripts rat for no reason")
 end
 
 if game.Workspace:FindFirstChild("HardcoreInt") then
@@ -100,17 +87,6 @@ end
 
 local init = Instance.new("BoolValue",game.Workspace)
 init.Name = "HardcoreInt"
-
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file ScaryRipper 1/5",true)
-loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/0104.mp3", "ScaryRipper")
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file ReboundWarning 2/5",true)
-loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundWarning.mp3", "Rebound")
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file ReboundMurder 3/5",true)
-loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundMurder.mp3", "Rebound_kill")
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file ReboundMoving 4/5",true)
-loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/ReboundMoving.mp3", "rebaund")
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("loaded file Followed 5/5",true)
-loadfile("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/followed.mp3", "Following")
 
 if game.ReplicatedStorage.GameData.LatestRoom.Value >= 1 then
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
@@ -245,7 +221,7 @@ task.spawn(function()
                 zerostamtween:Play()
                 while UIS:IsKeyDown(Enum.KeyCode.Q) and stamina > 0 do
                     stamina = math.max(stamina - 1, 0)
-                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 5)
+                    Fill.Size = UDim2.new(1 / staminaMax * stamina, 1, 1, 0)
                     task.wait(sprintTime / 100)
                     
                 end
@@ -299,7 +275,27 @@ task.spawn(function()
     end
 end)
 
-local captions = {"Good luck!","Have fun! (you wont)","Do Not","Freaky ! Xfest all my homies hate ! Xfest","Holy ####... Lois","who th is joe????","Special Thanks To Muhammed!","Extra help by realCat#3509","Happy new year!"}
+local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
+    local Url = GithubSoundPath
+        
+    if not isfile(AssetName..".mp3") then 
+        writefile(AssetName..".mp3", game:HttpGet(Url)) 
+    end
+        
+    local Sound = Instance.new("Sound")
+    Sound.SoundId = getcustomasset(AssetName..".mp3", true)
+    return Sound 
+end
+
+for i,v in pairs(game.ReplicatedStorage.Misc.Eyes:GetDescendants()) do
+	if v.Name == "Eye" then
+		v:FindFirstChild("Veins").Decal.Texture = "rbxassetid://1882220622"
+        v:FindFirstChild("Veins").Decal.Color3 = Color3.fromRGB(0,0,0)
+		v:FindFirstChild("Eye").Name = "KYS"
+	end
+end
+
+local captions = {"Good luck!","Have fun! (you wont)","Do Not","F#ck Uner all my homies hate Uner","Holy ####... Lois","who th is joe????","Special Thanks To Muhammed!","Extra help by realCat#3509","Happy new year!"}
 
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Hardcore v4 recreated version by LocalPlayer loaded",true)
 
@@ -317,13 +313,125 @@ local reboundt = false
 local silencet = false
 local dergodt = false
 
+local painters = 1
+local paints = {
+	[1] = {"rbxassetid://11881132074","Despair"},
+	[2] = {"rbxassetid://11881132745","Odd feline Specimen"},
+	[3] = {"rbxassetid://11881654771","A tryhard..."},
+	[4] = {"rbxassetid://7084794697","him."}
+}
+
+game:GetService("ReplicatedStorage").GameData.LatestRoom.Changed:Connect(function()
+	local room = workspace.CurrentRooms[game:GetService("ReplicatedStorage").GameData.LatestRoom.Value]
+	if room:FindFirstChild("Assets") then
+		local paintings = {}
+		for i,painting in next,room:FindFirstChild("Assets"):GetChildren() do
+			if painting.Name:find("Painting") then
+				table.insert(paintings,painting)
+			end
+		end
+		if #paintings > 0 then
+			local currentpainting
+			if paintings[#paintings] then
+				painters = painters + 1
+				currentpainting = paintings[#paintings]
+			else
+				currentpainting = paintings[1]
+			end
+			if currentpainting then
+				if currentpainting:FindFirstChild("Canvas") then
+					local selected = paints[math.random(1,#paints)]
+					if currentpainting:FindFirstChild("InteractPrompt") then
+						local cloning = currentpainting:FindFirstChild("InteractPrompt"):Clone() cloning.Name = "fakeInteract"
+						cloning.Parent = currentpainting
+						currentpainting:FindFirstChild("InteractPrompt"):Destroy()
+						local t = cloning.Triggered:Connect(function()
+                            require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(string.gsub("This painting is titled \"NAMEOFTHING\"","NAMEOFTHING",selected[2]),true)
+						end)
+					end
+					currentpainting:FindFirstChild("Canvas"):FindFirstChild("SurfaceGui"):FindFirstChild("ImageLabel").Image = selected[1]
+				end
+			end
+		end
+	end
+end)
+
 game.Workspace.CurrentRooms.ChildAdded:connect(function(room: Model)
-    task.wait(1)
-    if room:FindFirstChild("PathfindNodes") then
-        local nodes = room.PathfindNodes:Clone()
+    task.wait(2)
+    local nods = room:FindFirstChild("PathfindNodes")
+    if nods then
+        if room:FindFirstChild("FigureSetup") then
+            nods = room.FigureSetup:FindFirstChild("FigureNodes")
+	    for _ , v in nods:GetChildren() do
+		if v.Name ~= "1" then v:Destroy() end
+	    end
+        end
+        local nodes = nods:Clone()
         nodes.Parent = room
         nodes.Name = "nodes"
+        local secnodes = nods:Clone()
+        secnodes.Parent = room
+        secnodes.Name = "PathfindNodes"
     end
+    task.spawn(function()      
+        wait(1.2)
+        
+        local SeekMoving = "SeekMovingNewClone"
+        if not workspace:FindFirstChild(SeekMoving) then
+        	return 
+        end
+        local temlate = getGitSoundId("https://github.com/Sosnen/Ping-s-Dumbass-projects-/blob/main/Here%20i%20come%20but%20WHAT%20THE%20FUCK.mp3?raw=true","NewSeekMusic")
+
+        local RealSeek = workspace:FindFirstChild(SeekMoving)
+	RealSeek.Name = "chat is it reall?"
+        RealSeek.SeekMusic.SoundId = temlate.SoundId
+        local RealSeekRig = RealSeek:FindFirstChild("SeekRig")
+        local seekNew = game:GetObjects("rbxassetid://11664451634")[1] 
+        seekNew.Name = "seek2"
+        
+        for i,v in pairs(seekNew.Figure:GetChildren()) do
+        	if v:IsA("Sound") then
+        		v:Stop()
+        	end
+        end
+        for _ , v in RealSeekRig:GetChildren() do
+            if v.Name ~= "AnimationController" and v.Name ~= "Root" and v.Name ~= "Animations" then v:Destroy() end
+        end
+        seekNew.Parent = workspace
+        local SeekRig = seekNew:FindFirstChild("SeekRig")
+        SeekRig:FindFirstChild("Root").Anchored = true
+        spawn(function()
+        	while game["Run Service"].Heartbeat:Wait() and RealSeek do
+        		if RealSeekRig:FindFirstChild("Root") then
+        			SeekRig:FindFirstChild("Root").CFrame = RealSeekRig:FindFirstChild("Root").CFrame
+        		end
+        		for i,v in pairs(RealSeek.Figure:GetChildren()) do
+        			RealSeek.Figure.Footsteps:Stop()
+        			RealSeek.Figure.FootstepsFar:Stop()
+        		end
+        		for i,v in pairs(RealSeekRig:GetChildren()) do
+        			if v:IsA("BasePart") then
+        				v.Transparency = 1
+        			end
+        		end
+        	end
+        end)
+        
+        local seksound = RealSeek.SeekMusic
+        seksound.Played:Connect(function()
+        	spawn(function()
+        		wait(7)
+        		local figure = seekNew.Figure
+        		figure.FootseptsFar:Play()
+        		figure.Footsteps:Play()
+        		figure.Splashing:Play()
+        		figure["Splashing Far"]:Play()
+        	end)
+        	local raiser = SeekRig.AnimationController:LoadAnimation(SeekRig.AnimRaise) raiser:Play()
+        	raiser.Stopped:Wait()
+        	SeekRig.AnimationController:LoadAnimation(SeekRig.AnimRun):Play()
+        end)
+    end)
 end)
 
 task.spawn(function()
@@ -381,7 +489,7 @@ task.spawn(function()
                                     return Sound 
                                 end
 
-                                local scare = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/0104.mp3", "ScaryRipper")
+                                local scare = getGitSoundId("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Hardcore%20v4%20recreate/Im%20Scared.MP3", "RipperJumpscareOMG")
                                 scare.Parent = game.Workspace
                                 scare.Volume = 1.5
 
@@ -394,17 +502,24 @@ task.spawn(function()
                                 clone.Parent = game.Workspace
                                 ripper:Destroy()
 
-                                local twier:Tween = game.TweenService:Create(game.Workspace.CurrentCamera,TweenInfo.new(0.3,Enum.EasingStyle.Circular,Enum.EasingDirection.InOut),{CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position,clone.Position + Vector3.new(0,5,0))})
-                                twier:Play()
-                                twier.Completed:Wait()
+                                clone.ripe.ParticleEmitter.Texture = "rbxassetid://11816152645"
 
+                                local helper = Instance.new("Part",game.workspace)
+                                helper.Anchored = true
+                                helper.Transparency = 1
+                                helper.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
+                            
                                 game:GetService("RunService").RenderStepped:Connect(function()
                                     if game.Players.LocalPlayer.Character.Humanoid.Health >= 1 then
-                                        game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.workspace.currentCamera.CFrame.Position, clone.Position + Vector3.new(0,5,0))
+                                        game.Workspace.CurrentCamera.CFrame = helper.CFrame
                                     else
                                         return
                                     end
                                 end)
+
+                                local twier:Tween = game.TweenService:Create(helper,TweenInfo.new(0.3,Enum.EasingStyle.Circular,Enum.EasingDirection.InOut),{CFrame = CFrame.lookAt(helper.Position,clone.Position + Vector3.new(0,5,0))})
+                                twier:Play()
+                                twier.Completed:Wait()
 
                                 for _ , object: Instance in clone:GetDescendants() do
                                     if object:IsA("Sound") then
@@ -415,19 +530,14 @@ task.spawn(function()
                                 end
 
                                 task.wait(0.29)
-
-                                local jump = Instance.new("Sound",game.Workspace) 
-                                jump.SoundId = "rbxassetid://7017782324"
-                                jump.Volume = 1.5
                                 
                                 scare:Play()
                                 task.wait(0.21)
-                                jump:Play()
                                 task.wait(0.5)
 
                                 local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
                                 local image = Instance.new("ImageLabel",gui)
-                                image.Size = UDim2.new(0,1550,0,1000)
+                                image.Size = UDim2.new(1.2,0,1.2,0)
                                 image.AnchorPoint = Vector2.new(0.5,0.5)
                                 image.Position = UDim2.new(0.5,0,0.5,0)
                                 image.Image = "http://www.roblox.com/asset/?id=14412047172"
@@ -461,7 +571,7 @@ task.spawn(function()
 
                                 sound:Destroy()
                                 scare:Destroy()
-                                jump:Destroy()
+                                clone:Destroy()
                                 game.Players.LocalPlayer.Character.Humanoid.Health = 0
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.2,Enum.EasingStyle.Linear),{ImageTransparency = 1}):Play()
                                 firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Ripper...","You can tell his presence by the lights and his scream.","Hide when he does this!"},"Blue")
@@ -744,7 +854,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while task.wait(314) do
+    while task.wait(308) do
         if game.ReplicatedStorage.GameData.LatestRoom.Value ~= 50 then
             game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
             local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
@@ -810,7 +920,7 @@ task.spawn(function()
                                 kill:Play()
                                 local gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
                                 local image = Instance.new("ImageLabel",gui)
-                                image.Size = UDim2.new(0,1550,0,1000)
+                                image.Size = UDim2.new(1.2,0,1.2,0)
                                 image.AnchorPoint = Vector2.new(0.5,0.5)
                                 image.Position = UDim2.new(0.5,0,0.5,0)
                                 image.Image = "http://www.roblox.com/asset/?id=14412047172"
@@ -818,7 +928,7 @@ task.spawn(function()
                                 image.ImageTransparency = 1
 
                                 local image1 = Instance.new("ImageLabel",gui)
-                                image1.Size = UDim2.new(0,50,0,25)
+                                image1.Size = UDim2.new(0.1,0,0.1,0)
                                 image1.AnchorPoint = Vector2.new(0.5,0.5)
                                 image1.Position = UDim2.new(0.5,0,0.5,0)
                                 image1.Image = "http://www.roblox.com/asset/?id=18853595150"
@@ -841,7 +951,7 @@ task.spawn(function()
                                 end)
 
                                 game:GetService("TweenService"):Create(image,TweenInfo.new(0.4,Enum.EasingStyle.Linear),{ImageTransparency = 0}):Play()
-                                game:GetService("TweenService"):Create(image1,TweenInfo.new(0.4),{Size = UDim2.new(0,4000,0,2000)}):Play()
+                                game:GetService("TweenService"):Create(image1,TweenInfo.new(0.4),{Size = UDim2.new(1,0,1,0)}):Play()
 
                                 task.wait(0.8)
 
@@ -997,24 +1107,24 @@ task.spawn(function()
                         if room:FindFirstChild("nodes") then
                             for _ , node in room.nodes:GetChildren() do
                                 if node.Parent then
-                                    moved(der,node.CFrame + Vector3.new(0,3,0),20)
+                                    moved(der,node.CFrame + Vector3.new(0,3,0),16)
                                 end
                             end
                         end
                         if room:FindFirstChild("RoomExit") then
-                            moved(der,room.RoomExit.CFrame,20)
+                            moved(der,room.RoomExit.CFrame,16)
                         end
                     end
                     count += 1
                     passes += 1
-                    if passes >= 7 or count >= #game.Workspace.CurrentRooms:GetChildren() then
+                    if passes >= 8 or count >= #game.Workspace.CurrentRooms:GetChildren() then
                         der:Destroy()
                         soun:Destroy()
                         CustomMusic:Destroy()
                         if dergodt == false then
                             dergodt = true
                             achievementGiver({
-                                Title = "Last Change To Look Away",
+                                Title = "Last Chance To Look Away",
                                 Desc = "Why are you running?",
                                 Reason = "Encounter Deer God",
                                 Image = "rbxassetid://2129409220"
@@ -1133,133 +1243,135 @@ end)
 
 task.spawn(function()
     while task.wait(859) do
-        local faces = {
-            "rbxassetid://12145554242",
-            "rbxassetid://12145534911",
-            "rbxassetid://12145599275",
-            "rbxassetid://12145599498",
-            "rbxassetid://12155335619",
-            "rbxassetid://12145598814",
-            "rbxassetid://12146135062",
-            "rbxassetid://11378285585"
-        }
-
-
-        local soundd = Instance.new("Sound",game.Workspace)
-        soundd.Volume = 4
-        soundd.SoundId = "rbxassetid://199696655"
-        soundd.Looped = true
-        local ambience = Instance.new("Sound")
-        ambience.Volume = 5
-        ambience.PlaybackSpeed = 0.5
-        ambience.Looped = true
-        local ef = Instance.new("EqualizerSoundEffect",ambience)
-        ef.HighGain = -30.5
-        ef.LowGain = 0.1
-        ef.MidGain = -6.2
-        ef.Priority = 3
-
-
-        ---====== Load spawner ======---
-
-        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-
-        ---====== Create entity ======---
-
-        local entity = spawner.Create({
-            Entity = {
-                Name = "A60",
-                Asset = "rbxassetid://12263106166",
-                HeightOffset = 2
-            },
-            Lights = {
-                Flicker = {
-                    Enabled = false,
-                    Duration = 1
-                },
-                Shatter = false,
-                Repair = false
-            },
-            Earthquake = {
-                Enabled = false
-            },
-            CameraShake = {
-                Enabled = true,
-                Range = 100,
-                Values = {15, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
-            },
-            Movement = {
-                Speed = 350,
-                Delay = 2,
-                Reversed = false
-            },
-            Rebounding = {
-                Enabled = true,
-                Type = "Ambush", -- "Blitz"
-                Min = 4,
-                Max = 4,
-                Delay = 1
-            },
-            Damage = {
-                Enabled = true,
-                Range = 60,
-                Amount = 0.00001
-            },
-            Crucifixion = {
-                Enabled = true,
-                Range = 40,
-                Resist = false,
-                Break = true
-            },
-            Death = {
-                Type = "Guiding", -- "Curious"
-                Hints = {"Death", "Hints", "Go", "Here"},
-                Cause = ""
-            }
-        })
-
-        ---====== Debug entity ======---
-
-        entity:SetCallback("OnSpawned", function()
-            soundd:Play()
-            task.wait(3)
-            ambience:Play()
-        end)
-
-        entity:SetCallback("OnDespawned", function()
-            soundd:Destroy()
-            ambience:Destroy()
-            local buler = Instance.new("ColorCorrectionEffect",game.lighting)
-            buler.TintColor = Color3.fromRGB(255,0,4)
-	    buler.Saturation = -0.7
-	    buler.Contrast = 0.2
-            task.spawn(function()
-                for i = 100 , 0 , -1 do
-                    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).camShaker:ShakeOnce(i/50, 20, 0.1, 0.1)
-                    task.wait(0.1)
-                end
-            end)
-            task.wait(3)
-            game:GetService("TweenService"):Create(buler, TweenInfo.new(15), {TintColor = Color3.fromRGB(255,255,255),Saturation = 0, Contrast = 0}):Play()
-            task.wait(15)
-            buler:Destroy()
-        end)
-
-        entity:SetCallback("OnDamagePlayer", function(newHealth)
-            game.Workspace["A60"]:SetAttribute("Paused",true)
-            task.wait(1)
-            game:GetService("TweenService"):Create(game.Workspace["A60"].RushNew, TweenInfo.new(0.2), {CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame}):Play()
-            task.wait(0.5)
-            game.Players.LocalPlayer.Character.Humanoid.Health = 0
-            task.spawn(function()
-                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to an enitity designated as A-60","It can Appear at any moment, a loud scream will anounce its presence","When you hear it spawn you must stay out of its reach as soon as possible","It knows exactly where you are so hiding in different places will not work.."},"Blue")
-                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "A-60"
-            end)
-            task.wait(1)
-            game.Workspace["A60"]:SetAttribute("Paused",false)
-        end)
-
-        entity:Run()
+	task.spawn(function()
+	        local faces = {
+	            "rbxassetid://12145554242",
+	            "rbxassetid://12145534911",
+	            "rbxassetid://12145599275",
+	            "rbxassetid://12145599498",
+	            "rbxassetid://12155335619",
+	            "rbxassetid://12145598814",
+	            "rbxassetid://12146135062",
+	            "rbxassetid://11378285585"
+	        }
+	
+	
+	        local soundd = Instance.new("Sound",game.Workspace)
+	        soundd.Volume = 4
+	        soundd.SoundId = "rbxassetid://199696655"
+	        soundd.Looped = true
+	        local ambience = Instance.new("Sound")
+	        ambience.Volume = 5
+	        ambience.PlaybackSpeed = 0.5
+	        ambience.Looped = true
+	        local ef = Instance.new("EqualizerSoundEffect",ambience)
+	        ef.HighGain = -30.5
+	        ef.LowGain = 0.1
+	        ef.MidGain = -6.2
+	        ef.Priority = 3
+	
+	
+	        ---====== Load spawner ======---
+	
+	        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+	
+	        ---====== Create entity ======---
+	
+	        local entity = spawner.Create({
+	            Entity = {
+	                Name = "A60",
+	                Asset = "rbxassetid://12263106166",
+	                HeightOffset = 2
+	            },
+	            Lights = {
+	                Flicker = {
+	                    Enabled = false,
+	                    Duration = 1
+	                },
+	                Shatter = false,
+	                Repair = false
+	            },
+	            Earthquake = {
+	                Enabled = false
+	            },
+	            CameraShake = {
+	                Enabled = true,
+	                Range = 100,
+	                Values = {15, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	            },
+	            Movement = {
+	                Speed = 350,
+	                Delay = 2,
+	                Reversed = false
+	            },
+	            Rebounding = {
+	                Enabled = true,
+	                Type = "Ambush", -- "Blitz"
+	                Min = 4,
+	                Max = 4,
+	                Delay = 1
+	            },
+	            Damage = {
+	                Enabled = true,
+	                Range = 60,
+	                Amount = 0.00001
+	            },
+	            Crucifixion = {
+	                Enabled = true,
+	                Range = 40,
+	                Resist = false,
+	                Break = true
+	            },
+	            Death = {
+	                Type = "Guiding", -- "Curious"
+	                Hints = {"Death", "Hints", "Go", "Here"},
+	                Cause = ""
+	            }
+	        })
+	
+	        ---====== Debug entity ======---
+	
+	        entity:SetCallback("OnSpawned", function()
+	            soundd:Play()
+	            task.wait(3)
+	            ambience:Play()
+	        end)
+	
+	        entity:SetCallback("OnDespawned", function()
+	            soundd:Destroy()
+	            ambience:Destroy()
+	            local buler = Instance.new("ColorCorrectionEffect",game.lighting)
+	            buler.TintColor = Color3.fromRGB(255,0,4)
+		    buler.Saturation = -0.7
+		    buler.Contrast = 0.2
+	            task.spawn(function()
+	                for i = 100 , 0 , -1 do
+	                    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).camShaker:ShakeOnce(i/50, 20, 0.1, 0.1)
+	                    task.wait(0.1)
+	                end
+	            end)
+	            task.wait(3)
+	            game:GetService("TweenService"):Create(buler, TweenInfo.new(15), {TintColor = Color3.fromRGB(255,255,255),Saturation = 0, Contrast = 0}):Play()
+	            task.wait(15)
+	            buler:Destroy()
+	        end)
+	
+	        entity:SetCallback("OnDamagePlayer", function(newHealth)
+	            game.Workspace["A60"]:SetAttribute("Paused",true)
+	            task.wait(1)
+	            game:GetService("TweenService"):Create(game.Workspace["A60"].RushNew, TweenInfo.new(0.2), {CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame}):Play()
+	            task.wait(0.5)
+	            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+	            task.spawn(function()
+	                firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to an enitity designated as A-60","It can Appear at any moment, a loud scream will anounce its presence","When you hear it spawn you must stay out of its reach as soon as possible","It knows exactly where you are so hiding in different places will not work.."},"Blue")
+	                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "A-60"
+	            end)
+	            task.wait(1)
+	            game.Workspace["A60"]:SetAttribute("Paused",false)
+	        end)
+	
+	        entity:Run()
+	end)
     end
 end)
 
